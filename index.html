@@ -2370,26 +2370,26 @@ StructInstance("p", "Pixel")
     <span class="section-anchor" id="s12-1"></span>
     <h2 class="section-title" id="s12-1"><span class="snum">12.1</span> Pipeline Overview</h2>
     <div class="ascii-block">Source (.br)
-   │
-   ▼ Lexer → Parser
+   |
+   v  Lexer -> Parser
 AST (Statement / Expression tree)
-   │
-   ▼ TypeInferencer → Verifier
+   |
+   v  TypeInferencer -> Verifier
 Typed AST
-   │
-   ▼ Optimizer (--optimize N)
+   |
+   v  Optimizer (--optimize N)
 Optimized AST
-   │
-   ▼ IrBuilder
+   |
+   v  IrBuilder
 IrModule  (list of IrInstr)
-   │
-   ├──▶ MipsBackend  → output.bin
-   ├──▶ RiscvBackend → output.bin  (RV32I + M, little-endian)
-   ├──▶ ArmBackend   → output.bin  (stub, coming soon)
-   └──▶ IrEmitBackend→ output.ir
+   |
+   |-- MipsBackend   -> output.bin
+   |-- RiscvBackend  -> output.bin  (RV32I + M, little-endian)
+   |-- ArmBackend    -> output.bin  (stub, coming soon)
+   `-- IrEmitBackend -> output.ir
 
    Legacy path: --bridge flag bypasses IrBuilder
-   AST → LegacyCodegen → output.bin</div>
+   AST -> LegacyCodegen -> output.bin</div>
   </div>
 
   <div class="doc-section">
