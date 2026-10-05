@@ -654,4 +654,2543 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
         <span class="tree-label">15. Benchmarks</span>
       </div>
       <ul class="tree-children collapsed" id="ch-15" style="max-height:0">
-        <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="
+        <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-1" onclick="navA('benchmarks','s15-1',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.1 Compilation Speed</span></a></li>
+        <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-2" onclick="navA('benchmarks','s15-2',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.2 Binary Size</span></a></li>
+        <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-3" onclick="navA('benchmarks','s15-3',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.3 Detailed Breakdown</span></a></li>
+      </ul>
+    </li>
+
+    <!-- §16 Hardware & Simulation -->
+    <li>
+      <div class="tree-row section-head" onclick="tf('16')">
+        <span class="indent" style="width:4px"></span>
+        <span class="toggle" id="tg-16"><svg width="7" height="9" viewBox="0 0 7 9" fill="none"><path d="M1.5 1L5.5 4.5L1.5 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="dir-icon"><svg width="14" height="13" viewBox="0 0 14 13"><path d="M1 2.5h5l1 1.5H13v7.5H1V2.5z"/></svg></span>
+        <span class="tree-label">16. Hardware &amp; Simulation</span>
+      </div>
+      <ul class="tree-children collapsed" id="ch-16" style="max-height:0">
+        <li><a class="tree-row" href="#" data-page="deploy" data-anchor="s16-1" onclick="navA('deploy','s16-1',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">16.1 ESP32-C3 Live Firmware</span></a></li>
+        <li><a class="tree-row" href="#" data-page="deploy" data-anchor="s16-2" onclick="navA('deploy','s16-2',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">16.2 Wokwi Simulation</span></a></li>
+        <li><a class="tree-row" href="#" data-page="deploy" data-anchor="s16-3" onclick="navA('deploy','s16-3',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">16.3 Recommended Flow</span></a></li>
+      </ul>
+    </li>
+
+
+  </ul>
+</aside>
+
+<!-- ══════════════════════════════════════════════════════════════
+     MAIN
+══════════════════════════════════════════════════════════════ -->
+<main>
+
+<!-- ██████████████████████████████████████
+     HOME / OVERVIEW PAGE
+█████████████████████████████████████████ -->
+<div class="doc-page active" id="page-home">
+<div class="content-inner">
+  <div class="hero-banner">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACAAIADASIAAhEBAxEB/8QAHAABAQADAQEBAQAAAAAAAAAAAAUGBwgJAgME/8QARBAAAQIEAgQJBwkIAwAAAAAAAQIDAAQFEQYSBxMUIQgVMTRBU4GhsQkWFyJUk9IYMjdVYXaUtNMjJDNGUVKFxENXlf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDjKEIoycsEJC1i6zyA9EB/GiXeWLpbNvt3R9bJMdX3iKkICXskx1feIbJMdX3iKkICXskx1feIbJMdX3iKkICXskx1feIbJMdX3iKkICXskx1feIbJMdX3iKkICXskx1feI+Vy7yBdTZt9m+K0ICJCKM5LBaStAssco/rE6A/WVSFzCEnkveK0S5DnaO3wipAIQhAIQhAIQhAIQhAIQjI9H+CcSY7roo+GaeqbmAnO4oqCW2Uf3LUdwHeei8BjkI3Djbg46ScLUJ2sOMU6qy7CC4+mnPqccaSOUlKkJJt05bxp6ARJmkhEwtI5L3itEuf52vs8IBIc7R2+EVIlyHO0dvhFSARsjQnobxPpa4383J6jynFWp1+3vOIza3WZcuRtd/4ar3tyjljW8ftIzU1IzrE7JTL0rNS7iXWH2VlDjS0m6VJUN4IIBBG8EQHRPyONJ317g/8AFzP6EPkcaTvr3B/4uZ/QjNuA5pUxzijF1RwdiWtvViny9KXOS7s5+0mW1pfQkjWn1lg643zlRGVISUgEHriA4R+RxpO+vcH/AIuZ/Qh8jjSd9e4P/FzP6EbI4fmKcT4a8yvNzEdYo207fr9gnXJfW5dny5shGa2ZVr8lz/WOasPabdLVCnVzclpArzzi2y2Uz0yZ1uxINwh/OkHcPWAva4vYm4Z3iHgk6WqXJImJJNBrjinAgy8jPlDiRYnOS+ltNhYDcom5G61yNWY70dY5wM6pGK8L1KmNpcS0JlbWeWWtSM4Sl5N21nKCbJUSLKB3g29BuDjpXldLOBjVFy7MlWZFwS9TlG3AQleUFLqBcqDa9+XNvBStN1Zcx2PPSsrPST8lOyzM1KzDamn2HkBbbqFCykqSdxBBIIO4gwHkRHUXBZ4w9AOkHzOt536xepyW1mXUDU5b9ObXZb9MYHwstEsrotxzLGia7zerLa35FLqwosLSoBxi9ypQTmbIUoA2WBdRSpR15o/xtiTAldFYwzUFSkwU5HElIU28j+1aTuI7x0WgN7cC30qekWqcf+cPEWyL23jXW5NozDJl1n/J869ui9+iNA494u8+q/xPk4t4zmdjyfN1OtVkt9mW0bGxtwjtJOKaE7R3H6dSpd9BbfVTmFNuOpPKCpS1EX6cto09AIlz/O19nhFSJc/ztfZ4QCQ52jt8IqRLkOdo7fCKkAhCEB0f5PX6aKv93XvzMtHd0cI+T1+mir/d178zLR3dAcg+Ug/kL/I/6scgR3dw2NGeN9Ivml5m0TjPi/bdq/emWdXrNRk/iLTe+RXJfk39EaawJwRdI1ZdS5iaapuF5UOKQ4lbom5mwRdK0oaOrIKiE73EkWUbclwzzycUrNIkscTq5Z5Mq65ItNvlBDa1oD5WkK5CUhaCRygLTflEdcRriUc0X6AsASdKmKnJ0KmoupJfVnmp526ErdKUAreXdSMxSkhIsLJSkAaa0y8LqkS0lNUnRnKvT8642UIrM01q2WCQkhbbSxmcIuseuEAKSDZxO4hivlEMR0yfxZhnDMq7rZ6kSz785lUkpb2gtZEGxuF2azEED1VoIvfdyxFLE9dq+J6/OV+vz71Qqc65rJiYdO9R5ALDcAAAAkABIAAAAAibAIQhAIlz/O19nhFSJc/ztfZ4QCQ52jt8IqRLkOdo7fCKkAhCEB0f5PX6aKv93XvzMtHd0cI+T1+mir/d178zLR3dAc4cNjSZjfR15peZtb4s4w23av3Vl7WavUZP4iFWtnVyW5d/RGgsPcKrTFS51cxO1em1xtTZQJeepzaG0m4OcFgNquLEb1EWJ3XsRs7ykH8hf5H/AFY5AgPSrg/6bMPaW6bMJlmOKa7KXVNUt18OKDWayXW12TrEbwCbApUbEWKSpj3g/aKcX01Mo5haTojzd9VN0VpEm6i6kk3CU5F3CbeulVgVZbE3jhfg3VmaoWnjBk7KNsrcdqrUmoOgkZJg6hZ3Ebwl1RHRcC4I3H07gPNbhAaE8Q6JKlLqmX+NqFN2TK1RpgtpLuW6mnEXVq17iQLkKSLg3CgnVcem3CZw5TMS6DcVy9TazbDTnqlLOJSkraeYQpxBSVA5b5ShRFiULWLi8eZMAhCEAiXP87X2eEVIlz/O19nhAJDnaO3wipEuQ52jt8IqQCEI2RoT0eYYx5xv5x6SaPgrYdTqNvDZ2rPrM2XO6383Im9r/PHJ0hsfyev00Vf7uvfmZaO7o0RoZpPB90U7a9h3SDhuanp31XZ6fr0o4+loWOqSUlISi4zEAXJtcnKnLsj0p6Mf+xsH/wDty3xwHOHlIP5C/wAj/qxyBHphjvEWgzHNAVQcV4wwTU6epxLobXXGEFC08ikrS4FIO8i6SCQVA7iQdKSOhDgvy86xMPaWWZttpxK1y72J5ANugG5QooQlQB5DlUDY7iDvgNQcD3Ac1jTTLTZ0pebpmHnEVSbfQCBnbUCy2FZSm6nADlNiUIcsbiPReNTSOkXQJozwwxJUbFGFafTA4lsMUh0Tbi15LZ3EsZ3FEpbALi7kkC6rkXwPHfDCwNSXVS+FKLUsSuIcSC+tWxSy0FFypKlJU4SFWTZTaQfWINgMwZ5wuMWN4T0D19YWyJqrN8UyyHW1qDhfBS4PV5CGQ8oEkC6Ry8h824zDSnpJxfpLrSKniup7RqM4lJZpAbYlUKVmKUIHYMyiVkJSFKOURh8AhCEAiXP87X2eEVIlz/O19nhAJDnaO3wipEmVUETCFHkvaK0Ai3hXDU/iNyYRIvSrZYCSrXLIve9rWBPRESEBnPovr/tlM94v4Iei+v8AtlM94v4IwaEBnPovr/tlM94v4Iei+v8AtlM94v4IwaEBnPovr/tlM94v4Iei+v8AtlM94v4IwaEBnPovr/tlM94v4Iei+v8AtlM94v4IwaEBbxVhqfw45LonnpVwvhRTqVk2ta97gHpiJCEAiXP87X2eEVIkzSguYWocl7QH5RRk5kLSELNljkJ6YnQgLcIkomHkCyXDb7d8fW1zHWdwgKkIl7XMdZ3CG1zHWdwgKkIl7XMdZ3CG1zHWdwgKkIl7XMdZ3CG1zHWdwgKkIl7XMdZ3CG1zHWdwgKkIl7XMdZ3CPlcw8sWU4bfZugP7JyZCElCDdZ5T/SJ0IQH/2Q==" alt="BedRock">
+    <div>
+      <h1>BedRock Language Documentation</h1>
+      <p>Master Technical Reference: Revision 3.2 &nbsp;|&nbsp; Structs · Interrupts · Optimizer · IR · RISC-V · x86-64 · Benchmarks · Hardware</p>
+    </div>
+  </div>
+
+  <p>Welcome to the BedRock language documentation. BedRock is a systems programming language that compiles to bare-metal machine code — and, where useful, to a minimal hosted Linux executable. It is no longer tied to a single architecture. The compiler is multi-architecture, with backends for <strong>MIPS-32</strong> (big/little-endian), <strong>RISC-V</strong> (RV32I/M), and <strong>x86-64</strong> (Linux ELF). Every language construct maps directly and transparently to a fixed sequence of hardware instructions for whichever target you choose, with no runtime, no OS abstraction, and no magic.</p>
+  <p>This documentation covers the complete language specification, compiler internals, hardware interfacing primitives, hard-won guidance on the compiler's known enforcement behaviors and edge cases, plus <strong>benchmarks</strong> (BRC3 vs GCC) and <strong>hardware / simulation</strong> deployment notes for ESP32-C3 and Wokwi.</p>
+
+  <h2 class="section-title" style="margin-top:28px"><span class="snum">TOC</span> Documentation Sections</h2>
+  <div class="toc-grid">
+    <a class="toc-card" href="#" onclick="nav('philosophy',null);return false;"><div class="tc-num">§ 1</div><div class="tc-title">Core Philosophy</div><div class="tc-desc">No Magic, Byte-Level Validation, Direct Hardware Control</div></a>
+    <a class="toc-card" href="#" onclick="nav('lexical',null);return false;"><div class="tc-num">§ 2</div><div class="tc-title">Lexical Grammar</div><div class="tc-desc">Keywords, operators, literals, comments, and include</div></a>
+    <a class="toc-card" href="#" onclick="nav('memory',null);return false;"><div class="tc-num">§ 3</div><div class="tc-title">Memory Model</div><div class="tc-desc">Address space, segment layout, let vs root, stack frames</div></a>
+    <a class="toc-card" href="#" onclick="nav('syntax',null);return false;"><div class="tc-num">§ 4</div><div class="tc-title">Detailed Syntax Guide</div><div class="tc-desc">Variables, arrays, functions, control flow, inline asm</div></a>
+    <a class="toc-card" href="#" onclick="nav('codegen',null);return false;"><div class="tc-num">§ 5</div><div class="tc-title">Instruction Generation</div><div class="tc-desc">Compiler pipeline, MIPS encoding, binary output format</div></a>
+    <a class="toc-card" href="#" onclick="nav('hardware',null);return false;"><div class="tc-num">§ 6</div><div class="tc-title">Hardware Interfacing</div><div class="tc-desc">poke, peek, outb, inb, VGA text mode, keyboard input</div></a>
+    <a class="toc-card" href="#" onclick="nav('practices',null);return false;"><div class="tc-num">§ 7</div><div class="tc-title">Best Practices</div><div class="tc-desc">Address Library pattern, pure functions, global state</div></a>
+    <a class="toc-card" href="#" onclick="nav('edge',null);return false;"><div class="tc-num">§ 8</div><div class="tc-title">Compiler Enforcement</div><div class="tc-desc">12 critical edge cases every developer must know</div></a>
+    <a class="toc-card" href="#" onclick="nav('structs',null);return false;"><div class="tc-num">§ 9</div><div class="tc-title">Structs</div><div class="tc-desc">Composite types, field access, and compiler layout model</div></a>
+    <a class="toc-card" href="#" onclick="nav('interrupts',null);return false;"><div class="tc-num">§ 10</div><div class="tc-title">Interrupt System</div><div class="tc-desc">int · int_enable · int_disable: bare-metal ISR support</div></a>
+    <a class="toc-card" href="#" onclick="nav('optimizer',null);return false;"><div class="tc-num">§ 11</div><div class="tc-title">Optimizer</div><div class="tc-desc">Pruner (DCE), Transformer (LICM), Quantum register allocator</div></a>
+    <a class="toc-card" href="#" onclick="nav('ir',null);return false;"><div class="tc-num">§ 12</div><div class="tc-title">IR Pipeline</div><div class="tc-desc">BedRock-IR, multi-target backends, source maps, CLI flags</div></a>
+    <a class="toc-card" href="#" onclick="nav('riscv',null);return false;"><div class="tc-num">§ 13</div><div class="tc-title">RISC-V Backend</div><div class="tc-desc">RV32I/M encoding, register mapping, --target riscv</div></a>
+    <a class="toc-card" href="#" onclick="nav('x86',null);return false;"><div class="tc-num">§ 14</div><div class="tc-title">x86-64 Backend</div><div class="tc-desc">Linux ELF, syscalls, hosted I/O, --target x86</div></a>
+    <a class="toc-card" href="#" onclick="nav('benchmarks',null);return false;"><div class="tc-num">§ 15</div><div class="tc-title">Benchmarks</div><div class="tc-desc">BRC3 vs GCC: compile time and binary size</div></a>
+    <a class="toc-card" href="#" onclick="nav('deploy',null);return false;"><div class="tc-num">§ 16</div><div class="tc-title">Hardware &amp; Simulation</div><div class="tc-desc">ESP32-C3 live firmware, Wokwi, deployment flow</div></a>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" class="pn-right" onclick="nav('philosophy',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Start Here</span><span class="nav-ttl">§1 Core Philosophy</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §1 CORE PHILOSOPHY
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-philosophy">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§1 Core Philosophy</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 1</div>
+    <h1 class="page-title">Core Philosophy</h1>
+    <p class="page-desc">The three axioms that govern every design decision in the BedRock language and compiler.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s1-1"></span>
+    <h2 class="section-title" id="s1-1"><span class="snum">1.1</span> "No Magic"</h2>
+    <p>In BedRock, every operation maps to a <strong>known, fixed sequence of machine instructions</strong>. There are no hidden runtime allocations, no garbage collector, no implicit type coercions, and no virtual dispatch. What you write is exactly what executes.</p>
+    <p>This is enforced by design: the table below shows the exact 1-to-1 mapping for common constructs:</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock Construct</th><th>Machine Code Behavior</th></tr></thead>
+        <tbody>
+          <tr><td>let x = 5;</td><td>Exactly one <code>sw</code> instruction to a pre-assigned static address. No stack frame creation, no heap allocation.</td></tr>
+          <tr><td>let arr = [1, 2, 3];</td><td>Compiler statically assigns a base address in the DATA segment, emits three <code>sw</code> instructions during initialization. All accesses are compile-time pointer arithmetic.</td></tr>
+          <tr><td>fn foo() { ... }</td><td>Exactly one prologue (<code>addiu $sp, -32; sw $ra, 28($sp)</code>) and one epilogue (<code>lw $ra, 28($sp); addiu $sp, +32; jr $ra</code>). Nothing else.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout info">
+      <span class="callout-ico">ℹ</span>
+      <div><strong>Auditability:</strong> Every BedRock construct has a 1-to-1 mapping to MIPS-32 big/le-endian machine code that you can audit, verify, and predict. Use a hex editor on any <code>.bin</code> output to confirm.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s1-2"></span>
+    <h2 class="section-title" id="s1-2"><span class="snum">1.2</span> "Byte-Level Validation"</h2>
+    <p>Numbers in BedRock are unsigned 64-bit integers at parse time, collapsed to 32-bit at code generation. All memory addresses are 32-bit values. There are no floating-point types, no signed arithmetic in the type system, and no implicit widening or truncation.</p>
+    <p>The compiler validates output at the byte level by:</p>
+    <ul class="doc-list">
+      <li>Encoding all instructions as big/le-endian 32-bit words via <code>to_be_bytes()</code></li>
+      <li>Writing a raw <code>.bin</code> file with zero padding assumptions</li>
+      <li>Optionally writing a 1.44 MB floppy image (<code>bedrock_os.img</code>) by embedding the binary at sector 0</li>
+    </ul>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s1-3"></span>
+    <h2 class="section-title" id="s1-3"><span class="snum">1.3</span> "Direct Hardware Control"</h2>
+    <p>BedRock provides five mechanisms for hardware access that map directly to bare-metal MIPS operations. There is no operating system abstraction layer.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Construct</th><th>Hardware Operation</th><th>MIPS Instruction</th></tr></thead>
+        <tbody>
+          <tr><td>poke(addr, val)</td><td>Write 32-bit word to physical address</td><td><code>sw $val, 0($addr)</code></td></tr>
+          <tr><td>peek(addr)</td><td>Read 32-bit word from physical address</td><td><code>lw $dest, 0($addr)</code></td></tr>
+          <tr><td>outb(port, val)</td><td>Memory-mapped I/O write</td><td><code>sw $val, 0($port)</code></td></tr>
+          <tr><td>inb(port)</td><td>Memory-mapped I/O read</td><td><code>lw $dest, 0($port)</code></td></tr>
+          <tr><td>asm("hex")</td><td>Emit raw machine instruction</td><td>Direct word emission</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div><strong>No OS Layer:</strong> BedRock programs run on the bare metal and are responsible for their own memory layout. Incorrect addresses cause undefined hardware behavior: not a safe exception.</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('home',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Back</span><span class="nav-ttl">Overview</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('lexical',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next Section</span><span class="nav-ttl">§2 Lexical Grammar</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §2 LEXICAL GRAMMAR
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-lexical">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§2 Lexical Grammar</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 2</div>
+    <h1 class="page-title">Lexical Grammar</h1>
+    <p class="page-desc">Reserved keywords, operator tokens, literal types, and preprocessor directives recognized by the BedRock lexer.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s2-1"><span class="snum">2.1</span> Keywords</h2>
+    <p>The following identifiers are reserved and cannot be used as variable or function names.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Keyword</th><th>Category</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>fn</td><td>Declaration</td><td>Function definition</td></tr>
+          <tr><td>let</td><td>Declaration</td><td>Local/static variable declaration</td></tr>
+          <tr><td>root</td><td>Declaration</td><td>Hardware/environment constant declaration</td></tr>
+          <tr><td>return</td><td>Control Flow</td><td>Return from function</td></tr>
+          <tr><td>if</td><td>Control Flow</td><td>Conditional branch</td></tr>
+          <tr><td>else</td><td>Control Flow</td><td>Alternative branch</td></tr>
+          <tr><td>while</td><td>Control Flow</td><td>Conditional loop</td></tr>
+          <tr><td>loop</td><td>Control Flow</td><td>Infinite loop</td></tr>
+          <tr><td>break</td><td>Control Flow</td><td>Exit innermost loop</td></tr>
+          <tr><td>asm</td><td>Hardware</td><td>Emit raw machine instruction</td></tr>
+          <tr><td>outb</td><td>Hardware</td><td>Memory-mapped I/O write</td></tr>
+          <tr><td>inb</td><td>Hardware</td><td>Memory-mapped I/O read</td></tr>
+          <tr><td>poke</td><td>Hardware</td><td>Direct memory write</td></tr>
+          <tr><td>peek</td><td>Hardware</td><td>Direct memory read</td></tr>
+          <tr><td>in</td><td>Hardware</td><td>Wait for keyboard input (alias for WaitKey)</td></tr>
+          <tr><td>include</td><td>Preprocessor</td><td>Include another source file (textual substitution)</td></tr>
+          <tr><td>call</td><td>Hardware / Pointer</td><td>Jump to a runtime address via <code>jalr</code>: function pointer call</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s2-2"><span class="snum">2.2</span> Operators</h2>
+    <h3 class="sub-title">Arithmetic Operators</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Symbol</th><th>Token</th><th>MIPS Instruction</th></tr></thead>
+        <tbody>
+          <tr><td>+</td><td>Plus</td><td><code>addu</code></td></tr>
+          <tr><td>-</td><td>Minus</td><td><code>subu</code></td></tr>
+          <tr><td>*</td><td>Star</td><td><code>mult</code> + <code>mflo</code></td></tr>
+          <tr><td>/</td><td>Slash</td><td><code>div</code> + <code>mflo</code></td></tr>
+          <tr><td>^</td><td>Caret</td><td><code>xor</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sub-title">Bitwise Operators</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Symbol</th><th>Token</th><th>MIPS Instruction</th></tr></thead>
+        <tbody>
+          <tr><td>&amp;</td><td>Ampersand</td><td><code>and</code></td></tr>
+          <tr><td>|</td><td>Pipe</td><td><code>or</code></td></tr>
+          <tr><td>^</td><td>Caret</td><td><code>xor</code></td></tr>
+          <tr><td>&lt;&lt;</td><td>ShiftLeft</td><td><code>sllv</code></td></tr>
+          <tr><td>&gt;&gt;</td><td>ShiftRight</td><td><code>srlv</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sub-title">Comparison Operators</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Symbol</th><th>Token</th><th>MIPS Sequence</th></tr></thead>
+        <tbody>
+          <tr><td>==</td><td>EqEq</td><td><code>xor</code> + <code>sltiu $d, $d, 1</code></td></tr>
+          <tr><td>!=</td><td>NotEq</td><td><code>xor</code> + <code>sltu $d, $0, $d</code></td></tr>
+          <tr><td>&gt;</td><td>Greater</td><td><code>slt</code> (operands swapped)</td></tr>
+          <tr><td>&lt;</td><td>Less</td><td><code>slt</code></td></tr>
+          <tr><td>&gt;=</td><td>GreaterEq</td><td><code>slt</code> + <code>xori $d, $d, 1</code></td></tr>
+          <tr><td>&lt;=</td><td>LessEq</td><td><code>slt</code> (swapped) + <code>xori $d, $d, 1</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sub-title">Assignment</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Symbol</th><th>Token</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>=</td><td>Equal</td><td>Assignment (not comparison, use <code>==</code> for equality testing)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s2-3"><span class="snum">2.3</span> Literals</h2>
+    <h3 class="sub-title">Integer Literals</h3>
+    <p>BedRock supports decimal and hexadecimal integer literals. All integers are stored as <code>u64</code> during lexing.</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">literals.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+        <div class="ln-code"><span class="tk-c">// Decimal</span>
+<span class="tk-k">let</span> <span class="tk-i">x</span> <span class="tk-o">=</span> <span class="tk-n">255</span>;
+
+<span class="tk-c">// Hexadecimal (0x prefix, case-insensitive)</span>
+<span class="tk-k">let</span> <span class="tk-i">vga_base</span> <span class="tk-o">=</span> <span class="tk-v">0xB8000</span>;
+<span class="tk-k">let</span> <span class="tk-i">stack_top</span> <span class="tk-o">=</span> <span class="tk-v">0x80020000</span>;</div>
+      </div>
+    </div>
+    <h3 class="sub-title">String Literals</h3>
+    <p>Strings are delimited by double quotes, stored in the DATA segment as null-terminated byte arrays (C-style). Escape sequences are <strong>not</strong> processed; see §8.8.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">message</span> <span class="tk-o">=</span> <span class="tk-s">"Hello, BedRock!"</span>;</div>
+    </div>
+    <h3 class="sub-title">Array Literals</h3>
+    <p>Arrays are comma-separated lists of <strong>integer literals only</strong> enclosed in <code>[ ]</code>. Variables and expressions are not permitted as elements; see §8.2.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">palette</span> <span class="tk-o">=</span> [<span class="tk-v">0xFF0000</span>, <span class="tk-v">0x00FF00</span>, <span class="tk-v">0x0000FF</span>];</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s2-4"><span class="snum">2.4</span> Comments &amp; Include Directive</h2>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">comments.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+        <div class="ln-code"><span class="tk-c">// Single-line comment: from // to end of line</span>
+
+<span class="tk-c">/* Multi-line comment
+   spans multiple lines */</span>
+
+<span class="tk-k">include</span> <span class="tk-s">"vga.br"</span>;
+<span class="tk-k">include</span> <span class="tk-s">"keyboard.br"</span>;</div>
+      </div>
+    </div>
+    <p>The <code>include</code> directive is a preprocessor feature handled before lexing. It performs textual substitution of the named file's content into the current file. Include paths are resolved relative to the source file's directory and processed recursively.</p>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('philosophy',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§1 Core Philosophy</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('memory',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§3 Memory Model</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §3 MEMORY MODEL
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-memory">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§3 Memory Model</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 3</div>
+    <h1 class="page-title">Memory Model</h1>
+    <p class="page-desc">BedRock's flat 32-bit address space, segment layout, variable binding semantics, and stack frame structure.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s3-1"><span class="snum">3.1</span> Address Space</h2>
+    <p>BedRock uses a flat 32-bit address space. The layout is determined by three <code>root</code> declarations:</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Root Symbol</th><th>Default Value</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>BASE</td><td><code>0x80000000</code></td><td>Code segment start address</td></tr>
+          <tr><td>DATA</td><td><code>BASE + 0x10000</code></td><td>Static data segment start address</td></tr>
+          <tr><td>STACK</td><td><code>BASE + 0x20000</code></td><td>Initial stack pointer value</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">layout.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span></div>
+        <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">BASE</span>  <span class="tk-o">=</span> <span class="tk-v">0x80000000</span>;
+<span class="tk-k">root</span> <span class="tk-i">DATA</span>  <span class="tk-o">=</span> <span class="tk-v">0x80010000</span>;
+<span class="tk-k">root</span> <span class="tk-i">STACK</span> <span class="tk-o">=</span> <span class="tk-v">0x80020000</span>;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s3-2"><span class="snum">3.2</span> Segment Layout</h2>
+    <div class="ascii-block">┌─────────────────────────────────┐  ← BASE (e.g. 0x80000000)
+│  BOOTLOADER (3 instructions)    │  NOP, li $sp STACK, J main
+├─────────────────────────────────┤
+│  FUNCTION BODIES                │  Compiled first, before main code
+├─────────────────────────────────┤
+│  MAIN CODE                      │  Global statements execute here
+├─────────────────────────────────┤
+│  HALT (infinite jump-to-self)   │
+├─────────────────────────────────┤
+│  (gap)                          │
+├─────────────────────────────────┤  ← DATA (e.g. 0x80010000)
+│  STATIC DATA                    │  Arrays, strings (4-byte aligned)
+└─────────────────────────────────┘  ← STACK (grows downward from here)</div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s3-3"><span class="snum">3.3</span> <code>let</code>: Static Variable</h2>
+    <p><code>let</code> declares a static variable. In global scope, the compiler allocates a fixed address in the DATA segment and emits <code>sw</code> (store word) instructions to initialize it. Variables do not occupy stack space in global scope.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+        <div class="ln-code"><span class="tk-c">// Global scope: allocated in DATA segment</span>
+<span class="tk-k">let</span> <span class="tk-i">counter</span> <span class="tk-o">=</span> <span class="tk-n">0</span>;     <span class="tk-c">// Address N</span>
+<span class="tk-k">let</span> <span class="tk-i">limit</span>   <span class="tk-o">=</span> <span class="tk-n">100</span>;   <span class="tk-c">// Address N+4</span>
+
+<span class="tk-c">// Function scope: stored on stack frame</span>
+<span class="tk-k">fn</span> <span class="tk-i">compute</span>() {
+    <span class="tk-k">let</span> <span class="tk-i">result</span> <span class="tk-o">=</span> <span class="tk-n">0</span>;   <span class="tk-c">// Stack offset, lw/sw via $sp</span>
+}</div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <span class="callout-ico">✦</span>
+      <div><strong>Rule:</strong> A <code>let</code>-declared variable's address is resolved entirely at compile time. There is no dynamic allocation.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s3-4"><span class="snum">3.4</span> <code>root</code>: Hardware / Environment Constant</h2>
+    <p><code>root</code> declares a compile-time constant mapping a name to a fixed 32-bit address or value. Unlike <code>let</code>, a <code>root</code> symbol is <strong>never dereferenced</strong>. When used in an expression, it evaluates to the raw address value itself: not the value stored at that address.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Declaration</th><th>Expression Behavior</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td>let x = 5</td><td>Loads value 5 <em>from</em> memory address</td><td>Variables, counters, state</td></tr>
+          <tr class="hl-row"><td>root ADDR = 0xB8000</td><td>Loads the literal value <code>0xB8000</code>: no memory dereference</td><td>Hardware addresses, config constants</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span></div>
+        <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">VGA</span> <span class="tk-o">=</span> <span class="tk-v">0xB8000</span>;
+<span class="tk-hw">poke</span>(<span class="tk-i">VGA</span>, <span class="tk-v">0x0741</span>);   <span class="tk-c">// Writes 0x0741 to physical address 0xB8000</span></div>
+      </div>
+    </div>
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div><strong>Restriction:</strong> The right-hand side of a <code>root</code> declaration must be a literal integer. Expressions are not evaluated. See §8.1.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s3-5"><span class="snum">3.5</span> Stack Frame Structure</h2>
+    <p>Every function call creates a 32-byte stack frame:</p>
+    <div class="ascii-block">$sp + 28  ← Saved $ra (return address)
+$sp + 24  ← (reserved)
+$sp + 20  ← (reserved)
+$sp + 16  ← (reserved)
+$sp + 12  ← (reserved)
+$sp +  8  ← (reserved)
+$sp +  4  ← (reserved)
+$sp +  0  ← (base of frame)
+$sp + 32  ← First parameter (arg 0, passed by caller)
+$sp + 36  ← Second parameter (arg 1)
+...</div>
+    <h3 class="sub-title">Prologue (emitted automatically)</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">addiu $sp, $sp, -32    // Allocate 32-byte frame
+sw    $ra, 28($sp)     // Save return address</div>
+    </div>
+    <h3 class="sub-title">Epilogue (emitted automatically)</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">lw    $ra, 28($sp)     // Restore return address
+addiu $sp, $sp, 32     // Deallocate frame
+jr    $ra              // Return to caller
+nop                    // Delay slot</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s3-6"><span class="snum">3.6</span> Register Allocation</h2>
+    <p>The IR backend (default) uses a pool of <strong>18 physical registers</strong> (MIPS regs 8–25: <code>$t0</code>–<code>$t9</code> and <code>$s0</code>–<code>$s7</code>) for virtual register allocation. The legacy bridge path (<code>--bridge</code>) uses 14 registers. Allocation is done by the <code>RegAlloc</code> struct: if the pool is exhausted, the variable is <em>spilled</em> to a stack slot and loaded/stored as needed.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Register</th><th>MIPS Number</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td>$sp</td><td>29</td><td>Stack pointer</td></tr>
+          <tr><td>$ra</td><td>31</td><td>Return address (saved by JAL)</td></tr>
+          <tr><td>$v0</td><td>2</td><td>Function return value</td></tr>
+          <tr><td>$a0–$a3</td><td>4–7</td><td>Function arguments (caller convention)</td></tr>
+          <tr><td>$t0–$t7</td><td>8–15</td><td>Temporary expression registers (pool of 8)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout danger">
+      <span class="callout-ico">⛔</span>
+      <div><strong>Register Exhaustion:</strong> If <code>alloc_reg()</code> finds the pool empty, it silently returns register 8 (<code>$t0</code>), potentially corrupting a live value. See §8.9 for mitigation.</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('lexical',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§2 Lexical Grammar</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('syntax',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§4 Syntax Guide</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §4 SYNTAX GUIDE
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-syntax">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§4 Detailed Syntax Guide</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 4</div>
+    <h1 class="page-title">Detailed Syntax Guide</h1>
+    <p class="page-desc">Complete syntax reference for variables, arrays, strings, functions, control flow, and inline assembly.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s4-1"><span class="snum">4.1</span> Variable Declarations</h2>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">variables.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">x</span>     <span class="tk-o">=</span> <span class="tk-n">10</span>;
+<span class="tk-k">let</span> <span class="tk-i">total</span> <span class="tk-o">=</span> <span class="tk-i">x</span> <span class="tk-o">+</span> <span class="tk-n">5</span>;
+<span class="tk-k">let</span> <span class="tk-i">mask</span>  <span class="tk-o">=</span> <span class="tk-v">0xFF</span> <span class="tk-o">&amp;</span> <span class="tk-i">total</span>;
+<span class="tk-k">root</span> <span class="tk-i">VGA</span>  <span class="tk-o">=</span> <span class="tk-v">0xB8000</span>;   <span class="tk-c">// Compile-time constant</span>
+<span class="tk-k">root</span> <span class="tk-i">BASE</span> <span class="tk-o">=</span> <span class="tk-v">0x80000000</span>;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s4-2"><span class="snum">4.2</span> Arrays &amp; Strings</h2>
+    <h3 class="sub-title">Array Definition &amp; Access</h3>
+    <p>Arrays are statically allocated in the DATA segment. Only integer literals are permitted as element values. The compiler scales all indices by 4 (<code>sll idx, idx, 2</code>): each element is a 32-bit word.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+        <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">scores</span>  <span class="tk-o">=</span> [<span class="tk-n">100</span>, <span class="tk-n">200</span>, <span class="tk-n">150</span>, <span class="tk-n">75</span>];
+<span class="tk-k">let</span> <span class="tk-i">vga_row</span> <span class="tk-o">=</span> [<span class="tk-v">0x0720</span>, <span class="tk-v">0x0720</span>, <span class="tk-v">0x0720</span>];
+
+<span class="tk-k">let</span> <span class="tk-i">v</span> <span class="tk-o">=</span> <span class="tk-i">scores</span>[<span class="tk-n">0</span>];         <span class="tk-c">// Read element 0</span>
+<span class="tk-k">let</span> <span class="tk-i">v</span> <span class="tk-o">=</span> <span class="tk-i">scores</span>[<span class="tk-i">i</span>];         <span class="tk-c">// Read at index i</span>
+<span class="tk-i">scores</span>[<span class="tk-n">0</span>] <span class="tk-o">=</span> <span class="tk-n">999</span>;           <span class="tk-c">// Assign to element 0</span>
+<span class="tk-i">scores</span>[<span class="tk-i">i</span>] <span class="tk-o">=</span> <span class="tk-i">scores</span>[<span class="tk-i">i</span>] <span class="tk-o">+</span> <span class="tk-n">1</span>; <span class="tk-c">// Increment element i</span></div>
+      </div>
+    </div>
+    <h3 class="sub-title">String Definition</h3>
+    <p>Strings are stored as null-terminated byte arrays in the DATA segment, padded to the next 4-byte boundary.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">greeting</span> <span class="tk-o">=</span> <span class="tk-s">"Hello, World!"</span>;  <span class="tk-c">// 14 bytes: 13 chars + '\0'</span></div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s4-3"><span class="snum">4.3</span> Arithmetic &amp; Expressions</h2>
+    <p>Precedence rules: three levels (highest to lowest):<br><strong>High:</strong> <code>*</code>, <code>/</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code> (handled in <code>parse_factor</code>)<br><strong>Medium:</strong> <code>+</code>, <code>-</code>, <code>&amp;</code>, <code>|</code>, <code>^</code> (handled in <code>parse_term</code>)<br><strong>Low:</strong> <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code> (handled in <code>parse_expression</code>)<br>Use parentheses liberally to make intent explicit; see §8.6.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">sum</span>   <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">+</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">diff</span>  <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">-</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">prod</span>  <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">*</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">quot</span>  <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">/</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">xored</span> <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">^</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">anded</span> <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">&amp;</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">ored</span>  <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">|</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">eq</span>    <span class="tk-o">=</span> (<span class="tk-i">a</span> <span class="tk-o">==</span> <span class="tk-i">b</span>);  <span class="tk-c">// 1 if equal, 0 otherwise</span>
+<span class="tk-k">let</span> <span class="tk-i">flag</span>  <span class="tk-o">=</span> (<span class="tk-i">x</span> <span class="tk-o">&amp;</span> <span class="tk-v">0xFF</span>) <span class="tk-o">==</span> <span class="tk-v">0x41</span>;  <span class="tk-c">// Always use parentheses</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s4-4"><span class="snum">4.4</span> Function Definitions</h2>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">functions.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span></div>
+        <div class="ln-code"><span class="tk-k">fn</span> <span class="tk-i">add</span>(<span class="tk-i">a</span>, <span class="tk-i">b</span>) {
+    <span class="tk-cf">return</span> <span class="tk-i">a</span> <span class="tk-o">+</span> <span class="tk-i">b</span>;
+}
+
+<span class="tk-k">fn</span> <span class="tk-i">clear_screen</span>() {
+    <span class="tk-k">let</span> <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-n">0</span>;
+    <span class="tk-cf">while</span> (<span class="tk-i">i</span> <span class="tk-o">&lt;</span> <span class="tk-n">2000</span>) {
+        <span class="tk-hw">poke</span>(<span class="tk-i">VGA</span> <span class="tk-o">+</span> <span class="tk-i">i</span> <span class="tk-o">*</span> <span class="tk-n">2</span>, <span class="tk-v">0x0720</span>);
+        <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-i">i</span> <span class="tk-o">+</span> <span class="tk-n">1</span>;
+    }
+}
+
+<span class="tk-k">fn</span> <span class="tk-i">factorial</span>(<span class="tk-i">n</span>) {
+    <span class="tk-cf">if</span> (<span class="tk-i">n</span> <span class="tk-o">&lt;=</span> <span class="tk-n">1</span>) { <span class="tk-cf">return</span> <span class="tk-n">1</span>; }
+    <span class="tk-cf">return</span> <span class="tk-i">n</span> <span class="tk-o">*</span> <span class="tk-i">factorial</span>(<span class="tk-i">n</span> <span class="tk-o">-</span> <span class="tk-n">1</span>);
+}
+
+<span class="tk-k">let</span> <span class="tk-i">result</span> <span class="tk-o">=</span> <span class="tk-i">add</span>(<span class="tk-n">10</span>, <span class="tk-n">20</span>);</div>
+      </div>
+    </div>
+    <div class="callout info">
+      <span class="callout-ico">ℹ</span>
+      <div><strong>Rules:</strong> Functions must be defined at the top level (no nested definitions). Up to 4 arguments map to <code>$a0</code>–<code>$a3</code>. Return value is always in <code>$v0</code>; see §8.4 and §8.5.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s4-5"><span class="snum">4.5</span> Control Flow</h2>
+    <h3 class="sub-title">if / else</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-cf">if</span> (<span class="tk-i">x</span> <span class="tk-o">==</span> <span class="tk-n">0</span>) {
+    <span class="tk-hw">poke</span>(<span class="tk-i">VGA</span>, <span class="tk-v">0x0720</span>);
+} <span class="tk-cf">else</span> {
+    <span class="tk-hw">poke</span>(<span class="tk-i">VGA</span>, <span class="tk-v">0x0741</span>);
+}</div>
+      </div>
+    </div>
+    <h3 class="sub-title">while</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-n">0</span>;
+<span class="tk-cf">while</span> (<span class="tk-i">i</span> <span class="tk-o">&lt;</span> <span class="tk-n">80</span>) {
+    <span class="tk-hw">poke</span>(<span class="tk-i">VGA</span> <span class="tk-o">+</span> <span class="tk-i">i</span>, <span class="tk-v">0x0720</span>);
+    <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-i">i</span> <span class="tk-o">+</span> <span class="tk-n">1</span>;
+}</div>
+      </div>
+    </div>
+    <h3 class="sub-title">loop / break</h3>
+    <p>An infinite loop. Exits only via <code>break</code> or a return from the enclosing function.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+        <div class="ln-code"><span class="tk-cf">loop</span> {
+    <span class="tk-k">let</span> <span class="tk-i">key</span> <span class="tk-o">=</span> <span class="tk-k">in</span>;
+    <span class="tk-cf">if</span> (<span class="tk-i">key</span> <span class="tk-o">==</span> <span class="tk-v">0x1C</span>) { <span class="tk-cf">break</span>; }  <span class="tk-c">// Enter key</span>
+    <span class="tk-i">process_key</span>(<span class="tk-i">key</span>);
+}
+<span class="tk-c">// break emits: beq $0, $0, offset (patched after loop)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s4-6"><span class="snum">4.6</span> Inline Assembly</h2>
+    <p>Emits a single 32-bit MIPS instruction directly into the code stream. The argument must be the exact 32-bit encoding as a hex string: <strong>without</strong> the <code>0x</code> prefix.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-hw">asm</span>(<span class="tk-s">"00000000"</span>);   <span class="tk-c">// NOP</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"0000000C"</span>);   <span class="tk-c">// SYSCALL</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"42000018"</span>);   <span class="tk-c">// ERET (return from exception)</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"00084080"</span>);   <span class="tk-c">// sll $t0, $t0, 2  (shift left by 2)</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"000840C0"</span>);   <span class="tk-c">// sll $t0, $t0, 3  (shift left by 3)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s4-7"><span class="snum">4.7</span> <code>call()</code>: Function Pointers</h2>
+    <p>The <code>call(expr)</code> statement jumps to a runtime address stored in a variable or computed from an expression. Unlike a regular function call which uses an absolute <code>jal</code>, <code>call()</code> emits a <code>jalr</code> instruction: it loads the target address at runtime from whatever expression is given.</p>
+
+    <div class="callout info">
+      <span class="callout-ico">ℹ</span>
+      <div><strong>Added in Rev 1.1:</strong> Requires <code>Statement::CallPtr</code> in <code>ast.rs</code>, <code>Token::Call</code> in <code>lexer.rs</code>, <code>callptr_stmt()</code> in <code>parser.rs</code>, and the <code>jalr</code> emitter in <code>codegen/mod.rs</code>.</div>
+    </div>
+
+    <h3 class="sub-title">Syntax</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-hw">call</span>(<span class="tk-i">expression</span>);</div>
+    </div>
+
+    <h3 class="sub-title">Basic Usage: Stored Address</h3>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">ptr_call.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+        <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">BASE</span>  <span class="tk-o">=</span> <span class="tk-v">0x80100000</span>;
+<span class="tk-k">root</span> <span class="tk-i">DATA</span>  <span class="tk-o">=</span> <span class="tk-v">0x80110000</span>;
+<span class="tk-k">root</span> <span class="tk-i">STACK</span> <span class="tk-o">=</span> <span class="tk-v">0x80120000</span>;
+
+<span class="tk-k">fn</span> <span class="tk-i">my_func</span>() {
+    <span class="tk-hw">poke</span>(<span class="tk-v">0xBF000900</span>, <span class="tk-v">0x41</span>);
+}
+
+<span class="tk-k">let</span> <span class="tk-i">fn_ptr</span> <span class="tk-o">=</span> <span class="tk-v">0x80100010</span>;
+<span class="tk-hw">call</span>(<span class="tk-i">fn_ptr</span>);</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">MIPS Instructions Generated</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">lw   $tX, [DATA + fn_ptr_offset]   <span class="tk-c">// load address from variable</span>
+jalr $ra, $tX                      <span class="tk-c">// jump and link via register</span>
+nop                                 <span class="tk-c">// delay slot</span></div>
+    </div>
+
+    <h3 class="sub-title">Encoding of <code>jalr $ra, $tX</code></h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Register $tX</th><th>MIPS Number</th><th>jalr Encoding (hex)</th></tr></thead>
+        <tbody>
+          <tr><td>$t0</td><td>8</td><td><code>0x0100F809</code></td></tr>
+          <tr><td>$t1</td><td>9</td><td><code>0x0120F809</code></td></tr>
+          <tr><td>$t2</td><td>10</td><td><code>0x0140F809</code></td></tr>
+          <tr><td>$t3</td><td>11</td><td><code>0x0160F809</code></td></tr>
+          <tr><td>$t4</td><td>12</td><td><code>0x0180F809</code></td></tr>
+          <tr><td>$t5</td><td>13</td><td><code>0x01A0F809</code></td></tr>
+          <tr><td>$t6</td><td>14</td><td><code>0x01C0F809</code></td></tr>
+          <tr><td>$t7</td><td>15</td><td><code>0x01E0F809</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-title">Dynamic Dispatch: Computed Address</h3>
+    <p>The expression inside <code>call()</code> can be any valid BedRock expression: not just a simple variable. The compiler evaluates the full expression and jumps to the resulting address.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+        <div class="ln-code"><span class="tk-c">// Jump table: select handler by index</span>
+<span class="tk-k">let</span> <span class="tk-i">handlers</span> <span class="tk-o">=</span> [<span class="tk-v">0x80100050</span>, <span class="tk-v">0x80100080</span>, <span class="tk-v">0x801000B0</span>];
+<span class="tk-k">let</span> <span class="tk-i">idx</span> <span class="tk-o">=</span> <span class="tk-n">1</span>;
+<span class="tk-hw">call</span>(<span class="tk-i">handlers</span>[<span class="tk-i">idx</span>]);
+
+<span class="tk-c">// Computed from base + offset</span>
+<span class="tk-k">let</span> <span class="tk-i">base</span>   <span class="tk-o">=</span> <span class="tk-v">0x80100000</span>;
+<span class="tk-hw">call</span>(<span class="tk-i">base</span> <span class="tk-o">+</span> <span class="tk-v">0x50</span>);</div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div><strong>No return value:</strong> <code>call()</code> is a <em>statement</em>: it does not capture <code>$v0</code>. If the called function returns a value, it will be in <code>$v0</code> but the compiler does not assign it anywhere. Use a regular named function call (<code>let r = func();</code>) if you need the return value.</div>
+    </div>
+
+    <div class="callout danger">
+      <span class="callout-ico">⛔</span>
+      <div><strong>No argument passing:</strong> <code>call(expr)</code> does not push arguments onto the stack. The callee must read its inputs directly from known memory addresses or registers if needed. For full argument passing, use a named function call.</div>
+    </div>
+
+    <h3 class="sub-title">Comparison: <code>call()</code> vs Named Call</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Feature</th><th>call(ptr)</th><th>func_name(args)</th></tr></thead>
+        <tbody>
+          <tr><td>Target resolution</td><td>Runtime (register)</td><td>Compile-time (absolute jal)</td></tr>
+          <tr><td>MIPS instruction</td><td><code>jalr $ra, $tX</code></td><td><code>jal 0xABCDEF</code></td></tr>
+          <tr><td>Argument passing</td><td>❌ None</td><td>✅ Via stack</td></tr>
+          <tr><td>Return value</td><td>❌ Not captured</td><td>✅ In $v0 / let</td></tr>
+          <tr><td>Dynamic dispatch</td><td>✅ Any expression</td><td>❌ Static only</td></tr>
+          <tr><td>Flash-safe (PIC)</td><td>✅ If address is correct</td><td>❌ Absolute address</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('memory',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§3 Memory Model</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('codegen',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§5 Instruction Generation</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §5 INSTRUCTION GENERATION / CODEGEN
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-codegen">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§5 Instruction Generation</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 5</div>
+    <h1 class="page-title">Instruction Generation</h1>
+    <p class="page-desc">The compiler's eight-phase pipeline, MIPS encoding patterns, control flow generation, and binary output format.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s5-1"><span class="snum">5.1</span> Compiler Pipeline</h2>
+    <p>The compiler operates in a single pass with eight sequential phases:</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Phase</th><th>Name</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Phase 0</td><td>Root Symbol Collection</td><td>Resolves BASE, DATA, STACK addresses</td></tr>
+          <tr><td>Phase 1</td><td>Bootloader Emission</td><td>NOP, <code>li $sp STACK</code>, <code>J &lt;main_start&gt;</code> (patched later)</td></tr>
+          <tr><td>Phase 2</td><td>Static Data Allocation</td><td>Assigns addresses to arrays and strings in DATA segment</td></tr>
+          <tr><td>Phase 3</td><td>Function Code Generation</td><td>Emits function bodies with prologue/epilogue</td></tr>
+          <tr><td>Phase 4</td><td>Jump Patch</td><td>Back-patches the Phase 1 <code>J</code> instruction to point past functions</td></tr>
+          <tr><td>Phase 5</td><td>Static Data Initialization</td><td>Emits <code>sw</code> instructions to write array/string data into memory</td></tr>
+          <tr><td>Phase 6</td><td>Main Code Generation</td><td>Emits all non-root, non-function, non-static-data statements</td></tr>
+          <tr><td>Phase 7</td><td>Halt</td><td>Emits <code>J &lt;self&gt;</code> infinite loop</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s5-2"><span class="snum">5.2</span> Load Immediate (<code>emit_li</code>)</h2>
+    <p>All constant loading uses the following pattern based on the value's bit width:</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">If upper 16 bits == 0:
+    ori  $reg, $0, lower16       // Single instruction
+
+Else:
+    lui  $reg, upper16           // Load upper half
+    ori  $reg, $reg, lower16     // OR in lower half (if non-zero)</div>
+    </div>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">Examples</span><span class="cb-lang">MIPS</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+        <div class="ln-code"><span class="tk-c">// Loading 0x0041 → single ori</span>
+ori $t0, $0, 0x0041
+
+<span class="tk-c">// Loading 0xB8000 → lui + ori</span>
+lui $t0, 0x000B
+ori $t0, $t0, 0x8000</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s5-3"><span class="snum">5.3</span> Binary Operation Code Generation</h2>
+    <p>All binary operations follow the pattern: allocate regs → gen left → gen right → emit instruction → free regs.</p>
+    <h3 class="sub-title">Arithmetic Encodings</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock</th><th>MIPS Encoding</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>a + b</td><td><code>addu $d, $s, $t</code></td><td><code>0x00000021 | ...</code></td></tr>
+          <tr><td>a - b</td><td><code>subu $d, $s, $t</code></td><td><code>0x00000023 | ...</code></td></tr>
+          <tr><td>a * b</td><td><code>mult $s, $t</code> + <code>mflo $d</code></td><td>Result from LO register</td></tr>
+          <tr><td>a / b</td><td><code>div $s, $t</code> + <code>mflo $d</code></td><td>Quotient from LO register</td></tr>
+          <tr><td>a ^ b</td><td><code>xor $d, $s, $t</code></td><td><code>0x00000026 | ...</code></td></tr>
+          <tr><td>a &amp; b</td><td><code>and $d, $s, $t</code></td><td><code>0x00000024 | ...</code></td></tr>
+          <tr><td>a | b</td><td><code>or $d, $s, $t</code></td><td><code>0x00000025 | ...</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sub-title">Comparison Encodings</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock</th><th>MIPS Sequence</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>a == b</td><td><code>xor $d,$s,$t</code> + <code>sltiu $d,$d,1</code></td><td>1 if equal</td></tr>
+          <tr><td>a != b</td><td><code>xor $d,$s,$t</code> + <code>sltu $d,$0,$d</code></td><td>1 if not equal</td></tr>
+          <tr><td>a &lt; b</td><td><code>slt $d,$s,$t</code></td><td>1 if s &lt; t</td></tr>
+          <tr><td>a &gt; b</td><td><code>slt $d,$t,$s</code></td><td>Operands swapped</td></tr>
+          <tr><td>a &gt;= b</td><td><code>slt $d,$s,$t</code> + <code>xori $d,$d,1</code></td><td>Invert lt</td></tr>
+          <tr><td>a &lt;= b</td><td><code>slt $d,$t,$s</code> + <code>xori $d,$d,1</code></td><td>Invert gt</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s5-4"><span class="snum">5.4</span> Control Flow Code Generation</h2>
+    <h3 class="sub-title">if Statement</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">    gen_expr(condition, cond_reg)
+    beq $cond_reg, $0, &lt;else_offset&gt;  // Branch if condition == 0 (false)
+    nop
+    ... then_body ...
+    j &lt;end&gt;                            // Only if else exists
+    ... else_body ...
+end:</div>
+    </div>
+    <h3 class="sub-title">while Loop</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">start:
+    gen_expr(condition, cond_reg)
+    beq $cond_reg, $0, &lt;after_loop&gt;
+    nop
+    ... body ...
+    j start
+    nop
+after_loop:</div>
+    </div>
+    <h3 class="sub-title">loop (Infinite)</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">start:
+    ... body ...
+    j start
+    nop
+after_loop:  ← break patches jump here</div>
+    </div>
+    <h3 class="sub-title">Function Call (jal)</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">addiu $sp, $sp, -16
+sw $a0, 0($sp)       // arg 0
+sw $a1, 4($sp)       // arg 1
+jal &lt;function_address&gt;
+nop                   // delay slot
+// Return value is in $v0</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s5-5"><span class="snum">5.5</span> Memory Operations</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock</th><th>MIPS</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>poke(addr, val)</td><td><code>sw $val, 0($addr)</code></td><td>32-bit store to physical address</td></tr>
+          <tr><td>peek(addr)</td><td><code>lw $dest, 0($addr)</code></td><td>32-bit load from physical address</td></tr>
+          <tr><td>outb(port, val)</td><td><code>sw $val, 0($port)</code></td><td>MMIO write (identical to sw)</td></tr>
+          <tr><td>inb(port)</td><td><code>lw $dest, 0($port)</code></td><td>MMIO read (identical to lw)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s5-6"><span class="snum">5.6</span> Binary Output Format</h2>
+    <p>The compiler emits a flat binary of 32-bit big/le-endian MIPS instructions:</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">codegen/mod.rs</span><span class="cb-lang">Rust</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">self.code.iter()
+    .flat_map(|&amp;instr| instr.to_be_bytes().to_vec())
+    .collect()</div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Output File</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>&lt;source&gt;.bin</td><td>Raw binary of the compiled program (flat MIPS words)</td></tr>
+          <tr><td>&lt;source&gt;.map.json</td><td>Source map: per-instruction line number, absolute address, and 32-bit opcode: useful for debugging and binary auditing</td></tr>
+          <tr><td>bedrock_os.img</td><td>1,474,560-byte floppy disk image (1.44 MB), binary at offset 0, first sector = 512 bytes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('syntax',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§4 Syntax Guide</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('hardware',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§6 Hardware Interfacing</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §6 HARDWARE INTERFACING
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-hardware">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§6 Hardware Interfacing</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 6</div>
+    <h1 class="page-title">Hardware Interfacing</h1>
+    <p class="page-desc">Complete reference for direct memory access, MMIO I/O port operations, VGA text mode, keyboard input, and raw instruction injection.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s6-1"><span class="snum">6.1</span> Direct Memory Writes: <code>poke</code></h2>
+    <p><code>poke</code> writes a 32-bit value to an absolute physical address. No bounds checking occurs.</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">vga_write.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">VGA</span> <span class="tk-o">=</span> <span class="tk-v">0xB8000</span>;
+
+<span class="tk-c">// Write 'A' (0x41) with white-on-black attribute (0x07) to VGA cell 0</span>
+<span class="tk-hw">poke</span>(<span class="tk-i">VGA</span>, <span class="tk-v">0x0741</span>);
+<span class="tk-hw">poke</span>(<span class="tk-i">VGA</span> <span class="tk-o">+</span> <span class="tk-n">2</span>, <span class="tk-v">0x0720</span>);  <span class="tk-c">// Clear next cell</span></div>
+      </div>
+    </div>
+    <h3 class="sub-title">Machine Code Generated</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">lui  $t0, 0x000B      // Load VGA high word
+ori  $t0, $t0, 0x8000 // VGA = 0xB8000
+ori  $t1, $0, 0x0741  // value
+sw   $t1, 0($t0)      // poke</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s6-2"><span class="snum">6.2</span> Direct Memory Reads: <code>peek</code></h2>
+    <p><code>peek</code> reads a 32-bit value from an absolute physical address and returns it as an expression value (in <code>$v0</code> / the allocated register).</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span></div>
+        <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">cell</span>   <span class="tk-o">=</span> <span class="tk-hw">peek</span>(<span class="tk-i">VGA</span>);           <span class="tk-c">// Read VGA cell 0</span>
+<span class="tk-k">let</span> <span class="tk-i">status</span> <span class="tk-o">=</span> <span class="tk-hw">peek</span>(<span class="tk-v">0x80030000</span>);   <span class="tk-c">// Read status register</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s6-3"><span class="snum">6.3</span> I/O Port Access: <code>outb</code> / <code>inb</code></h2>
+    <p>BedRock implements I/O as MMIO. <code>outb</code> and <code>inb</code> are functionally identical to <code>poke</code> and <code>peek</code> at the machine code level: both emit <code>sw</code> and <code>lw</code> instructions respectively. The distinction is <strong>semantic only</strong>, signaling programmer intent.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-c">// Send command byte to UART port</span>
+<span class="tk-hw">outb</span>(<span class="tk-v">0x3F8</span>, <span class="tk-v">0x80</span>);  <span class="tk-c">// UART: Set DLAB bit</span>
+
+<span class="tk-c">// Read byte from UART data register</span>
+<span class="tk-k">let</span> <span class="tk-i">data</span> <span class="tk-o">=</span> <span class="tk-hw">inb</span>(<span class="tk-v">0x3F8</span>);</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s6-4"><span class="snum">6.4</span> VGA Text Mode: Practical Reference</h2>
+    <p>VGA text mode buffer begins at physical address <code>0xB8000</code>. Each character cell is 2 bytes.</p>
+    <div class="ascii-block">Byte 0 (even): ASCII character code
+Byte 1 (odd):  Attribute byte
+               Bits [7:4] = background color
+               Bits [3:0] = foreground color
+
+Standard 80×25 text mode = 2,000 cells × 2 bytes = 4,000 bytes total</div>
+    <h3 class="sub-title">Color Constants (Foreground)</h3>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Color</th><th>Value</th><th>Color</th><th style="border-left:1px solid var(--g100)">Value</th></tr></thead>
+        <tbody>
+          <tr><td>Black</td><td><code>0x0</code></td><td>Light Gray</td><td><code>0x7</code></td></tr>
+          <tr><td>Blue</td><td><code>0x1</code></td><td>Dark Gray</td><td><code>0x8</code></td></tr>
+          <tr><td>Green</td><td><code>0x2</code></td><td>Light Blue</td><td><code>0x9</code></td></tr>
+          <tr><td>Cyan</td><td><code>0x3</code></td><td>Light Green</td><td><code>0xA</code></td></tr>
+          <tr><td>Red</td><td><code>0x4</code></td><td>Light Cyan</td><td><code>0xB</code></td></tr>
+          <tr><td>Magenta</td><td><code>0x5</code></td><td>Light Red</td><td><code>0xC</code></td></tr>
+          <tr><td>Brown</td><td><code>0x6</code></td><td>White</td><td><code>0xF</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sub-title">Cell Address Formula</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">cell_address  = 0xB8000 + (row * 80 + col) * 2
+attribute     = (background &lt;&lt; 4) | foreground
+cell_value    = (attribute &lt;&lt; 8) | ascii_code</div>
+    </div>
+    <h3 class="sub-title">Example: Print 'H' in White on Black at (0,0)</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">VGA</span> <span class="tk-o">=</span> <span class="tk-v">0xB8000</span>;
+<span class="tk-hw">poke</span>(<span class="tk-i">VGA</span>, <span class="tk-v">0x0748</span>);   <span class="tk-c">// 0x07=white-on-black, 0x48='H'</span></div>
+    </div>
+    <h3 class="sub-title">Example: Clear Entire Screen</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+        <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">VGA</span> <span class="tk-o">=</span> <span class="tk-v">0xB8000</span>;
+
+<span class="tk-k">fn</span> <span class="tk-i">cls</span>() {
+    <span class="tk-k">let</span> <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-n">0</span>;
+    <span class="tk-cf">while</span> (<span class="tk-i">i</span> <span class="tk-o">&lt;</span> <span class="tk-n">4000</span>) {
+        <span class="tk-hw">poke</span>(<span class="tk-i">VGA</span> <span class="tk-o">+</span> <span class="tk-i">i</span>, <span class="tk-v">0x0720</span>);
+        <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-i">i</span> <span class="tk-o">+</span> <span class="tk-n">2</span>;
+    }
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s6-5"><span class="snum">6.5</span> Keyboard Input: <code>in</code></h2>
+    <p>The keyword <code>in</code> (used as an expression) reads from the keyboard input address <code>0x80020000</code> (hardcoded in the compiler). Use <code>inb</code> with an explicit port address to override.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">key</span> <span class="tk-o">=</span> <span class="tk-k">in</span>;  <span class="tk-c">// lw from 0x80020000</span>
+
+<span class="tk-c">// Override with explicit address</span>
+<span class="tk-k">root</span> <span class="tk-i">KBD_DATA</span> <span class="tk-o">=</span> <span class="tk-v">0x60</span>;
+<span class="tk-k">let</span> <span class="tk-i">scancode</span> <span class="tk-o">=</span> <span class="tk-hw">inb</span>(<span class="tk-i">KBD_DATA</span>);</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s6-6"><span class="snum">6.6</span> Raw Instruction Injection: <code>asm</code></h2>
+    <p>Use <code>asm</code> for instructions not expressible in BedRock's grammar. Always document the encoding.</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">MIPS R-type encoding</span><span class="cb-lang">Reference</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">Bits [31:26] = opcode  (000000 for R-type)
+Bits [25:21] = rs
+Bits [20:16] = rt
+Bits [15:11] = rd
+Bits [10:6]  = shamt
+Bits [5:0]   = function code</div>
+    </div>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+        <div class="ln-code"><span class="tk-c">// Logical shift left by 2: sll $t0, $t0, 2 = 0x00084080</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"00084080"</span>);
+
+<span class="tk-c">// Exception return (ERET)</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"42000018"</span>);</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('codegen',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§5 Instruction Generation</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('practices',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§7 Best Practices</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §7 BEST PRACTICES
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-practices">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§7 Best Practices</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 7</div>
+    <h1 class="page-title">Best Practices</h1>
+    <p class="page-desc">Proven patterns for writing maintainable, auditable, and correct bare-metal BedRock programs.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s7-1"><span class="snum">7.1</span> The Address Library Pattern</h2>
+    <p>Declare all hardware addresses as <code>root</code> constants in a dedicated <code>include</code> file. This creates a zero-cost hardware abstraction layer and eliminates magic numbers from your code.</p>
+    <h3 class="sub-title">❌ Without Address Library (Avoid)</h3>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-hw">poke</span>(<span class="tk-v">0xB8000</span>, <span class="tk-v">0x0741</span>);   <span class="tk-c">// What is this address?</span>
+<span class="tk-hw">poke</span>(<span class="tk-v">0xB8002</span>, <span class="tk-v">0x0720</span>);   <span class="tk-c">// Unclear intent</span>
+<span class="tk-hw">outb</span>(<span class="tk-v">0x3F8</span>, <span class="tk-v">0x80</span>);        <span class="tk-c">// Magic numbers</span></div>
+    </div>
+    <h3 class="sub-title">✅ With Address Library (Preferred)</h3>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">hardware.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+        <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">VGA_BASE</span>   <span class="tk-o">=</span> <span class="tk-v">0xB8000</span>;
+<span class="tk-k">root</span> <span class="tk-i">UART_DATA</span>  <span class="tk-o">=</span> <span class="tk-v">0x3F8</span>;
+<span class="tk-k">root</span> <span class="tk-i">UART_IER</span>   <span class="tk-o">=</span> <span class="tk-v">0x3F9</span>;
+<span class="tk-k">root</span> <span class="tk-i">UART_LCR</span>   <span class="tk-o">=</span> <span class="tk-v">0x3FB</span>;
+<span class="tk-k">root</span> <span class="tk-i">UART_LSR</span>   <span class="tk-o">=</span> <span class="tk-v">0x3FD</span>;
+<span class="tk-k">root</span> <span class="tk-i">PIC_MASTER</span> <span class="tk-o">=</span> <span class="tk-v">0x20</span>;
+<span class="tk-k">root</span> <span class="tk-i">PIC_SLAVE</span>  <span class="tk-o">=</span> <span class="tk-v">0xA0</span>;
+<span class="tk-k">root</span> <span class="tk-i">PIT_CH0</span>    <span class="tk-o">=</span> <span class="tk-v">0x40</span>;
+<span class="tk-k">root</span> <span class="tk-i">PIT_CMD</span>    <span class="tk-o">=</span> <span class="tk-v">0x43</span>;
+<span class="tk-k">root</span> <span class="tk-i">KBD_DATA</span>   <span class="tk-o">=</span> <span class="tk-v">0x60</span>;
+<span class="tk-k">root</span> <span class="tk-i">KBD_STATUS</span> <span class="tk-o">=</span> <span class="tk-v">0x64</span>;</div>
+      </div>
+    </div>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">main.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+        <div class="ln-code"><span class="tk-k">include</span> <span class="tk-s">"hardware.br"</span>;
+
+<span class="tk-hw">poke</span>(<span class="tk-i">VGA_BASE</span>, <span class="tk-v">0x0741</span>);    <span class="tk-c">// Self-documenting</span>
+<span class="tk-hw">outb</span>(<span class="tk-i">UART_LCR</span>, <span class="tk-v">0x80</span>);      <span class="tk-c">// Intent is clear</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s7-2"><span class="snum">7.2</span> Write Pure Functions</h2>
+    <p>Functions that only operate on their parameters and local variables are predictable, testable, and cacheable. Avoid functions that modify hardware state without naming what they target.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="ln-code"><span class="tk-c">// ❌ Less clear: what address is modified?</span>
+<span class="tk-k">fn</span> <span class="tk-i">update</span>(<span class="tk-i">x</span>, <span class="tk-i">y</span>, <span class="tk-i">ch</span>) {
+    <span class="tk-hw">poke</span>(<span class="tk-v">0xB8000</span> <span class="tk-o">+</span> (<span class="tk-i">y</span> <span class="tk-o">*</span> <span class="tk-n">160</span>) <span class="tk-o">+</span> (<span class="tk-i">x</span> <span class="tk-o">*</span> <span class="tk-n">2</span>), <span class="tk-i">ch</span>);
+}
+
+<span class="tk-c">// ✅ Self-documenting: explicit VGA purpose</span>
+<span class="tk-k">fn</span> <span class="tk-i">vga_put_char</span>(<span class="tk-i">col</span>, <span class="tk-i">row</span>, <span class="tk-i">char_attr</span>) {
+    <span class="tk-k">let</span> <span class="tk-i">offset</span> <span class="tk-o">=</span> <span class="tk-i">row</span> <span class="tk-o">*</span> <span class="tk-n">160</span> <span class="tk-o">+</span> <span class="tk-i">col</span> <span class="tk-o">*</span> <span class="tk-n">2</span>;
+    <span class="tk-hw">poke</span>(<span class="tk-i">VGA</span> <span class="tk-o">+</span> <span class="tk-i">offset</span>, <span class="tk-i">char_attr</span>);
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s7-3"><span class="snum">7.3</span> Use Loops for Bulk Hardware Operations</h2>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+        <div class="ln-code"><span class="tk-c">// ❌ Unrolled: does not scale</span>
+<span class="tk-hw">poke</span>(<span class="tk-i">VGA</span>,     <span class="tk-v">0x0720</span>);
+<span class="tk-hw">poke</span>(<span class="tk-i">VGA</span> <span class="tk-o">+</span> <span class="tk-n">2</span>, <span class="tk-v">0x0720</span>);
+<span class="tk-c">// ... 2000 times</span>
+
+<span class="tk-c">// ✅ Loop: correct</span>
+<span class="tk-k">fn</span> <span class="tk-i">cls</span>() {
+    <span class="tk-k">let</span> <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-n">0</span>;
+    <span class="tk-cf">while</span> (<span class="tk-i">i</span> <span class="tk-o">&lt;</span> <span class="tk-n">4000</span>) {
+        <span class="tk-hw">poke</span>(<span class="tk-i">VGA</span> <span class="tk-o">+</span> <span class="tk-i">i</span>, <span class="tk-v">0x0720</span>);
+        <span class="tk-i">i</span> <span class="tk-o">=</span> <span class="tk-i">i</span> <span class="tk-o">+</span> <span class="tk-n">2</span>;
+    }
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s7-4"><span class="snum">7.4</span> Always Set BASE, DATA, STACK Explicitly</h2>
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div><strong>Never rely on compiler defaults</strong> in production code. Explicit memory layout declarations make your program's address space auditable and portable across MIPS simulator configurations.</div>
+    </div>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">BASE</span>  <span class="tk-o">=</span> <span class="tk-v">0x80000000</span>;   <span class="tk-c">// Code starts here</span>
+<span class="tk-k">root</span> <span class="tk-i">DATA</span>  <span class="tk-o">=</span> <span class="tk-v">0x80010000</span>;   <span class="tk-c">// Static data here</span>
+<span class="tk-k">root</span> <span class="tk-i">STACK</span> <span class="tk-o">=</span> <span class="tk-v">0x80020000</span>;   <span class="tk-c">// Stack grows down from here</span></div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="section-title" id="s7-5"><span class="snum">7.5</span> Use <code>asm</code> Sparingly and Document It</h2>
+    <p>Inline assembly breaks the readability contract of BedRock. When you must use it, always document the instruction's human-readable name and effect.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-c">// ❌ Undocumented: unacceptable</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"00084080"</span>);
+
+<span class="tk-c">// ✅ Documented: acceptable</span>
+<span class="tk-c">// Shift left by 2 (multiply by 4): sll $t0, $t0, 2</span>
+<span class="tk-hw">asm</span>(<span class="tk-s">"00084080"</span>);</div>
+    </div>
+    <div class="callout tip">
+      <span class="callout-ico">✦</span>
+      <div><strong>Global state tip:</strong> <code>let</code> variables at global scope are static and persist for the program lifetime. Prefer passing values through function parameters and return values to keep program state explicit and auditable.</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('hardware',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§6 Hardware Interfacing</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('edge',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§8 Compiler Enforcement</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §8 EDGE CASES / COMPILER ENFORCEMENT
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-edge">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§8 Compiler Enforcement</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 8</div>
+    <h1 class="page-title">Compiler Enforcement &amp; Edge Cases</h1>
+    <p class="page-desc">Twelve critical behaviors, limitations, and silent failure modes that every BedRock developer must understand before writing production code.</p>
+  </div>
+
+  <div class="callout danger" style="margin-bottom:28px">
+    <span class="callout-ico">⛔</span>
+    <div><strong>Critical Reading:</strong> Several of these edge cases cause silent data corruption or undefined behavior: not compile errors. Study this section carefully before writing any non-trivial BedRock program.</div>
+  </div>
+
+  <!-- §8.1 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-1"><span class="snum">8.1</span> <code>root</code> Requires Literal Number Values</h2>
+    <p>The right-hand side of a <code>root</code> declaration must be a literal integer. Expressions are not evaluated.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">A</span> <span class="tk-o">=</span> <span class="tk-v">0x80000000</span>;    <span class="tk-c"><span class="tk-ok">// ✅ Valid</span></span>
+<span class="tk-k">root</span> <span class="tk-i">B</span> <span class="tk-o">=</span> <span class="tk-i">A</span> <span class="tk-o">+</span> <span class="tk-v">0x10000</span>;    <span class="tk-c"><span class="tk-err">// ❌ Not supported: expression not evaluated</span></span></div>
+    </div>
+  </div>
+
+  <!-- §8.2 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-2"><span class="snum">8.2</span> Array Literals Allow Only Integer Literals</h2>
+    <p>Array literal values must be compile-time integer constants. Variables and expressions are not permitted: the parser will panic.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">arr</span> <span class="tk-o">=</span> [<span class="tk-n">1</span>, <span class="tk-n">2</span>, <span class="tk-n">3</span>];          <span class="tk-c"><span class="tk-ok">// ✅ Valid</span></span>
+<span class="tk-k">let</span> <span class="tk-i">arr</span> <span class="tk-o">=</span> [<span class="tk-v">0xFF</span>, <span class="tk-v">0x0720</span>];    <span class="tk-c"><span class="tk-ok">// ✅ Valid: hex literals permitted</span></span>
+<span class="tk-k">let</span> <span class="tk-i">arr</span> <span class="tk-o">=</span> [<span class="tk-i">x</span>, <span class="tk-i">y</span>, <span class="tk-i">z</span>];          <span class="tk-c"><span class="tk-err">// ❌ Parser panics: expects Token::Number</span></span></div>
+    </div>
+  </div>
+
+  <!-- §8.3 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-3"><span class="snum">8.3</span> Unresolved Variable Panics at Codegen</h2>
+    <p>Referencing an undeclared variable causes a <code>panic!</code> in the codegen phase. There is no graceful error recovery: the compiler process terminates.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">x</span> <span class="tk-o">=</span> <span class="tk-i">y</span> <span class="tk-o">+</span> <span class="tk-n">1</span>;   <span class="tk-c"><span class="tk-err">// ❌ Panics if 'y' was never declared</span></span>
+<span class="tk-c">// .expect("Variable not defined!"): source: codegen/mod.rs</span></div>
+    </div>
+  </div>
+
+  <!-- §8.4 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-4"><span class="snum">8.4</span> Function Call Arguments Are Positional Only</h2>
+    <p>BedRock has no named parameters at call sites. Arguments are matched by position. The number of arguments passed is <strong>not validated</strong> by the parser.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">fn</span> <span class="tk-i">add</span>(<span class="tk-i">a</span>, <span class="tk-i">b</span>) { <span class="tk-cf">return</span> <span class="tk-i">a</span> <span class="tk-o">+</span> <span class="tk-i">b</span>; }
+
+<span class="tk-i">add</span>(<span class="tk-n">1</span>, <span class="tk-n">2</span>);       <span class="tk-c"><span class="tk-ok">// ✅ Correct</span></span>
+<span class="tk-i">add</span>(<span class="tk-n">1</span>);          <span class="tk-c"><span class="tk-err">// ⚠ Compiles, but 'b' loads garbage from stack</span></span>
+<span class="tk-i">add</span>(<span class="tk-n">1</span>, <span class="tk-n">2</span>, <span class="tk-n">3</span>);    <span class="tk-c"><span class="tk-err">// ⚠ Compiles, third arg is silently ignored</span></span></div>
+    </div>
+  </div>
+
+  <!-- §8.5 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-5"><span class="snum">8.5</span> Return Value Is Always <code>$v0</code></h2>
+    <p>There is only one return register (<code>$v0</code> = register 2). Multiple return values are not supported. Calling two functions in a complex expression may overwrite <code>$v0</code> before it is consumed.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-c">// ⚠ Unsafe: second call may overwrite first $v0 before use</span>
+<span class="tk-k">let</span> <span class="tk-i">result</span> <span class="tk-o">=</span> <span class="tk-i">foo</span>() <span class="tk-o">+</span> <span class="tk-i">bar</span>();
+
+<span class="tk-c">// ✅ Safe: capture each return value before next call</span>
+<span class="tk-k">let</span> <span class="tk-i">a</span> <span class="tk-o">=</span> <span class="tk-i">foo</span>();
+<span class="tk-k">let</span> <span class="tk-i">b</span> <span class="tk-o">=</span> <span class="tk-i">bar</span>();
+<span class="tk-k">let</span> <span class="tk-i">result</span> <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">+</span> <span class="tk-i">b</span>;</div>
+    </div>
+  </div>
+
+  <!-- §8.6 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-6"><span class="snum">8.6</span> No Operator Precedence for Bitwise / Comparison</h2>
+    <p>BedRock has three precedence levels. <strong>High:</strong> <code>*</code>, <code>/</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>. <strong>Medium:</strong> <code>+</code>, <code>-</code>, <code>&amp;</code>, <code>|</code>, <code>^</code>. <strong>Low:</strong> <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>. Bitwise operators like <code>&amp;</code> bind <em>before</em> comparisons, but <em>after</em> shifts: still use parentheses to make intent explicit.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">flag</span> <span class="tk-o">=</span> (<span class="tk-i">x</span> <span class="tk-o">&amp;</span> <span class="tk-v">0xFF</span>) <span class="tk-o">==</span> <span class="tk-v">0x41</span>;   <span class="tk-c"><span class="tk-ok">// ✅ Parentheses make intent clear</span></span>
+<span class="tk-k">let</span> <span class="tk-i">flag</span> <span class="tk-o">=</span> <span class="tk-i">x</span> <span class="tk-o">&amp;</span> <span class="tk-v">0xFF</span> <span class="tk-o">==</span> <span class="tk-v">0x41</span>;     <span class="tk-c"><span class="tk-err">// ⚠ Evaluates left-to-right, not as intended</span></span></div>
+    </div>
+  </div>
+
+  <!-- §8.7 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-7"><span class="snum">8.7</span> <code>!</code> Without <code>=</code> Is a Lexer Error</h2>
+    <p>The lexer only recognizes <code>!=</code>. A lone <code>!</code> produces <code>Token::EOF</code> and terminates lexing silently: not an error message.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-cf">if</span> (<span class="tk-err">!</span><span class="tk-i">flag</span>) { ... }       <span class="tk-c"><span class="tk-err">// ❌ Lexer error: '!' alone terminates lexing</span></span>
+<span class="tk-cf">if</span> (<span class="tk-i">flag</span> <span class="tk-o">==</span> <span class="tk-n">0</span>) { ... }   <span class="tk-c"><span class="tk-ok">// ✅ Correct equivalent form</span></span></div>
+    </div>
+  </div>
+
+  <!-- §8.8 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-8"><span class="snum">8.8</span> String Literals Do Not Support Escape Sequences</h2>
+    <p>The lexer reads string content character-by-character until the closing <code>"</code>. Backslash sequences are stored literally as two characters.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">msg</span> <span class="tk-o">=</span> <span class="tk-s">"Hello\nWorld"</span>;
+<span class="tk-c">// Stored as: H e l l o \ n W o r l d \0</span>
+<span class="tk-c">// '\n' is TWO characters (0x5C 0x6E), NOT a newline (0x0A)</span></div>
+    </div>
+  </div>
+
+  <!-- §8.9 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-9"><span class="snum">8.9</span> Register Pool Exhaustion (Legacy Bridge Path Only)</h2>
+    <p>In the legacy bridge path (<code>--bridge</code>), the register pool contains 14 registers. If exhausted, <code>alloc_reg()</code> silently returns register 8 (<code>$t0</code>), corrupting a live value without any warning. <strong>The default IR pipeline spills to stack instead</strong>: no silent corruption.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+        <div class="ln-code"><span class="tk-c">// ⚠ Potentially unsafe: may exhaust register pool</span>
+<span class="tk-k">let</span> <span class="tk-i">v</span> <span class="tk-o">=</span> ((((<span class="tk-i">a</span> <span class="tk-o">+</span> <span class="tk-i">b</span>) <span class="tk-o">*</span> <span class="tk-i">c</span>) <span class="tk-o">-</span> <span class="tk-i">d</span>) <span class="tk-o">/</span> <span class="tk-i">e</span>) <span class="tk-o">+</span> ((<span class="tk-i">f</span> <span class="tk-o">&amp;</span> <span class="tk-i">g</span>) <span class="tk-o">|</span> <span class="tk-i">h</span>);
+
+<span class="tk-c">// ✅ Safe: break into intermediate let bindings</span>
+<span class="tk-k">let</span> <span class="tk-i">step1</span> <span class="tk-o">=</span> <span class="tk-i">a</span> <span class="tk-o">+</span> <span class="tk-i">b</span>;
+<span class="tk-k">let</span> <span class="tk-i">step2</span> <span class="tk-o">=</span> <span class="tk-i">step1</span> <span class="tk-o">*</span> <span class="tk-i">c</span>;
+<span class="tk-k">let</span> <span class="tk-i">step3</span> <span class="tk-o">=</span> <span class="tk-i">step2</span> <span class="tk-o">-</span> <span class="tk-i">d</span>;
+<span class="tk-k">let</span> <span class="tk-i">step4</span> <span class="tk-o">=</span> <span class="tk-i">step3</span> <span class="tk-o">/</span> <span class="tk-i">e</span>;
+<span class="tk-k">let</span> <span class="tk-i">step5</span> <span class="tk-o">=</span> <span class="tk-i">f</span> <span class="tk-o">&amp;</span> <span class="tk-i">g</span>;
+<span class="tk-k">let</span> <span class="tk-i">step6</span> <span class="tk-o">=</span> <span class="tk-i">step5</span> <span class="tk-o">|</span> <span class="tk-i">h</span>;
+<span class="tk-k">let</span> <span class="tk-i">v</span>     <span class="tk-o">=</span> <span class="tk-i">step4</span> <span class="tk-o">+</span> <span class="tk-i">step6</span>;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- §8.10 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-10"><span class="snum">8.10</span> Shift Operators (<code>&lt;&lt;</code> / <code>&gt;&gt;</code>)</h2>
+    <p>BedRock includes native shift operators in the lexer and codegen. Both logical left-shift (<code>&lt;&lt;</code>) and logical right-shift (<code>&gt;&gt;</code>) are first-class operators and compile to the corresponding MIPS <code>sllv</code> / <code>srlv</code> instructions.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-c">// ✅ Native shift operators: no asm required</span>
+<span class="tk-k">let</span> <span class="tk-i">attr</span>   <span class="tk-o">=</span> <span class="tk-i">bg</span> <span class="tk-o">&lt;&lt;</span> <span class="tk-n">4</span>;          <span class="tk-c">// VGA background color</span>
+<span class="tk-k">let</span> <span class="tk-i">upper</span>  <span class="tk-o">=</span> <span class="tk-i">val</span> <span class="tk-o">&gt;&gt;</span> <span class="tk-n">8</span>;         <span class="tk-c">// Extract high byte</span>
+<span class="tk-k">let</span> <span class="tk-i">scaled</span> <span class="tk-o">=</span> <span class="tk-i">idx</span> <span class="tk-o">&lt;&lt;</span> <span class="tk-n">2</span>;         <span class="tk-c">// Multiply by 4 (word offset)</span>
+<span class="tk-k">let</span> <span class="tk-i">mask</span>   <span class="tk-o">=</span> (<span class="tk-n">1</span> <span class="tk-o">&lt;&lt;</span> <span class="tk-i">bit</span>) <span class="tk-o">-</span> <span class="tk-n">1</span>;   <span class="tk-c">// Dynamic bit mask</span></div>
+      </div>
+    </div>
+    <div class="callout tip">
+      <span class="callout-ico">✦</span>
+      <div><strong>Added in Rev 1.1:</strong> Shift operators are now native. The <code>asm</code> workaround for shifts is no longer necessary, though raw <code>asm</code> remains available for advanced shift amounts or coprocessor operations.</div>
+    </div>
+  </div>
+
+  <!-- §8.11 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-11"><span class="snum">8.11</span> Integer Overflow Is Silent</h2>
+    <p>All arithmetic uses unsigned MIPS <code>addu</code>/<code>subu</code>. Overflow wraps silently at 2³² − 1. There are no overflow traps or checks at compile time or runtime.</p>
+    <div class="callout danger">
+      <span class="callout-ico">⛔</span>
+      <div><strong>Silent Wrap:</strong> <code>0xFFFFFFFF + 1</code> produces <code>0x00000000</code> with no warning, no exception, and no way to detect it after the fact.</div>
+    </div>
+  </div>
+
+  <!-- §8.12 -->
+  <div class="doc-section">
+    <h2 class="section-title" id="s8-12"><span class="snum">8.12</span> Division by Zero Is Undefined</h2>
+    <p>BedRock emits a raw MIPS <code>div</code> instruction. On MIPS, division by zero produces an unpredictable value in LO and does not raise an exception unless the hardware is explicitly configured to do so. There is no compile-time or runtime guard.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">result</span> <span class="tk-o">=</span> <span class="tk-i">x</span> <span class="tk-o">/</span> <span class="tk-n">0</span>;   <span class="tk-c"><span class="tk-err">// Compiles. Runtime behavior is undefined.</span></span></div>
+    </div>
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div>Always validate divisors before dividing. Use an <code>if</code> guard or assert non-zero before any <code>/</code> expression where the denominator could be variable.</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('practices',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§7 Best Practices</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('home',null);return false;"><span class="nav-arr">↑</span><span class="nav-info"><span class="nav-lbl">Back to</span><span class="nav-ttl">Overview</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §9 STRUCTS
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-structs">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§9 Structs</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 9</div>
+    <h1 class="page-title">Structs</h1>
+    <p class="page-desc">Named composite types that group fields together at compile-time offsets. BedRock structs are purely a compiler layout mechanism: no runtime type information, no VTable, no padding beyond 4-byte word alignment.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s9-1"></span>
+    <h2 class="section-title" id="s9-1"><span class="snum">9.1</span> Defining a Struct</h2>
+    <p>Use the <code>struct</code> keyword followed by the type name and a list of fields. Each field has a name and a type.</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">structs.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="ln-code"><span class="tk-k">struct</span> <span class="tk-t">Pixel</span> {
+    <span class="tk-i">x</span> <span class="tk-o">@</span> <span class="tk-t">u32</span>,
+    <span class="tk-i">y</span> <span class="tk-o">@</span> <span class="tk-t">u32</span>,
+    <span class="tk-i">color</span> <span class="tk-o">@</span> <span class="tk-t">u32</span>,
+}
+
+<span class="tk-k">struct</span> <span class="tk-t">Timer</span> {
+    <span class="tk-i">ticks</span> <span class="tk-o">@</span> <span class="tk-t">u32</span>,
+    <span class="tk-i">limit</span> <span class="tk-o">@</span> <span class="tk-t">u32</span>,
+}</div>
+      </div>
+    </div>
+    <div class="callout info">
+      <span class="callout-ico">ℹ</span>
+      <div><strong>Layout rule:</strong> Fields are assigned offsets sequentially in multiples of 4 bytes. <code>field 0</code> → offset <code>0</code>, <code>field 1</code> → offset <code>4</code>, <code>field 2</code> → offset <code>8</code>, and so on. There is no padding or alignment adjustment: every field is a 32-bit word.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s9-2"></span>
+    <h2 class="section-title" id="s9-2"><span class="snum">9.2</span> Instantiating a Struct</h2>
+    <p>Use the <code>StructInstance</code> statement to bind a variable name to a struct type. The compiler allocates one virtual register per field, named <code>varname__fieldname</code>.</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">instance.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">p</span> <span class="tk-o">@</span> <span class="tk-t">Pixel</span>;    <span class="tk-c">// p is an instance of Pixel</span>
+
+<span class="tk-c">// Field access and assignment</span>
+<span class="tk-i">p</span>.<span class="tk-i">x</span> = <span class="tk-n">10</span>;
+<span class="tk-i">p</span>.<span class="tk-i">color</span> = <span class="tk-v">0xFF0000</span>;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s9-3"></span>
+    <h2 class="section-title" id="s9-3"><span class="snum">9.3</span> Field Access</h2>
+    <p>Fields are accessed with dot notation. A read generates a <code>get</code> IR op (→ <code>lw</code>), a write generates a <code>mov</code> IR op (→ <code>sw</code>).</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">field_access.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="ln-code"><span class="tk-k">struct</span> <span class="tk-t">Vec2</span> { <span class="tk-i">x</span> <span class="tk-o">@</span> <span class="tk-t">u32</span>, <span class="tk-i">y</span> <span class="tk-o">@</span> <span class="tk-t">u32</span>, }
+
+<span class="tk-k">let</span> <span class="tk-i">pos</span> <span class="tk-o">@</span> <span class="tk-t">Vec2</span>;
+
+<span class="tk-i">pos</span>.<span class="tk-i">x</span> = <span class="tk-n">100</span>;            <span class="tk-c">// Write field</span>
+<span class="tk-i">pos</span>.<span class="tk-i">y</span> = <span class="tk-n">50</span>;
+
+<span class="tk-k">let</span> <span class="tk-i">px</span> = <span class="tk-i">pos</span>.<span class="tk-i">x</span>;           <span class="tk-c">// Read field → loads pos__x</span>
+<span class="tk-k">let</span> <span class="tk-i">dist</span> = <span class="tk-i">pos</span>.<span class="tk-i">x</span> + <span class="tk-i">pos</span>.<span class="tk-i">y</span>; <span class="tk-c">// Expression with fields</span></div>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock Expression</th><th>IR Lowering</th><th>MIPS Output</th></tr></thead>
+        <tbody>
+          <tr><td>pos.x = 10</td><td><code>Mov %pos.x, 10</code></td><td><code>li $tX, 10 / sw $tX, DATA+off</code></td></tr>
+          <tr><td>let v = pos.x</td><td><code>Get %tN, %pos__x</code></td><td><code>lw $tN, DATA+off</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s9-4"></span>
+    <h2 class="section-title" id="s9-4"><span class="snum">9.4</span> Struct Internals (Compiler View)</h2>
+    <p>Structs are a purely compile-time construct. The <code>IrBuilder</code> reads <code>Statement::StructDefine</code> to build an internal layout table mapping each field name to a byte offset. When a <code>StructInstance</code> is lowered, it emits one <code>Const</code> IR op per field, creating named virtual registers like <code>p__x</code>, <code>p__y</code>.</p>
+    <div class="ascii-block">StructDefine("Pixel", [("x",0), ("y",4), ("color",8)])
+       ↓ triggered by: let p @ Pixel;
+StructInstance("p", "Pixel")
+       ↓  IrBuilder lowers to:
+  Const %p__x,   0   ; offset of field x
+  Const %p__y,   4   ; offset of field y
+  Const %p__color, 8 ; offset of field color</div>
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div><strong>No heap allocation:</strong> Structs do not allocate memory. The named virtual registers hold offsets, not addresses. To use a struct as an actual memory block, combine it with a base pointer using <code>poke</code> / <code>peek</code> and the offset values.</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('edge',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§8 Compiler Enforcement</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('interrupts',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§10 Interrupt System</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §10 INTERRUPTS
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-interrupts">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§10 Interrupt System</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 10</div>
+    <h1 class="page-title">Interrupt System</h1>
+    <p class="page-desc">BedRock provides first-class support for hardware interrupt handlers via three dedicated keywords: <code>int</code>, <code>int_enable</code>, and <code>int_disable</code>. Handlers are written as ordinary BedRock function bodies but are registered as interrupt service routines at the MIPS exception vector level.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s10-1"></span>
+    <h2 class="section-title" id="s10-1"><span class="snum">10.1</span> Defining an Interrupt Handler</h2>
+    <p>Use the <code>int</code> keyword to define an interrupt service routine (ISR). The body executes in interrupt context and should return as quickly as possible. The compiler automatically appends an <code>ERET</code> (exception return) at the end.</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">interrupts.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="ln-code"><span class="tk-k">int</span> <span class="tk-i">timer_isr</span> {
+    <span class="tk-k">let</span> <span class="tk-i">ticks</span> = <span class="tk-hw">peek</span>(<span class="tk-i">TIMER_ADDR</span>);
+    <span class="tk-i">ticks</span> = <span class="tk-i">ticks</span> + <span class="tk-n">1</span>;
+    <span class="tk-hw">poke</span>(<span class="tk-i">TIMER_ADDR</span>, <span class="tk-i">ticks</span>);
+}
+
+<span class="tk-k">int</span> <span class="tk-i">uart_isr</span> {
+    <span class="tk-hw">poke</span>(<span class="tk-v">0xBF000900</span>, <span class="tk-v">0x0D</span>);   <span class="tk-c">// acknowledge UART</span>
+}</div>
+      </div>
+    </div>
+    <div class="callout info">
+      <span class="callout-ico">ℹ</span>
+      <div><strong>Handler label:</strong> The name given to <code>int</code> becomes a label in the output binary. The compiler automatically saves and restores <code>$ra</code>, <code>$t8</code>, and <code>$s0</code>–<code>$s3</code> in the prologue/epilogue, then emits <code>ERET</code> (0x42000018) to return from the exception.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s10-2"></span>
+    <h2 class="section-title" id="s10-2"><span class="snum">10.2</span> Enabling Interrupts: <code>int_enable</code></h2>
+    <p>The <code>int_enable(vector, handler)</code> statement installs an ISR at a specific interrupt vector. The first argument must be a compile-time constant: the vector number. The second is the handler label defined with <code>int</code>.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+        <div class="ln-code"><span class="tk-c">// Install timer_isr at vector 7</span>
+<span class="tk-k">int_enable</span>(<span class="tk-n">7</span>, <span class="tk-i">timer_isr</span>);
+
+<span class="tk-c">// Install uart_isr at vector 4</span>
+<span class="tk-k">int_enable</span>(<span class="tk-n">4</span>, <span class="tk-i">uart_isr</span>);</div>
+      </div>
+    </div>
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div><strong>Vector must be a constant:</strong> The IR builder warns if the vector expression is not a compile-time immediate. Passing a variable as the vector number produces a warning and defaults the vector to 0.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s10-3"></span>
+    <h2 class="section-title" id="s10-3"><span class="snum">10.3</span> Disabling Interrupts: <code>int_disable</code></h2>
+    <p>The <code>int_disable</code> statement (no arguments) globally disables all hardware interrupts by clearing the IE bit in the MIPS <code>Status</code> coprocessor register.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">int_disable</span>;    <span class="tk-c">// Disable all interrupts (clear IE in CP0 Status)</span></div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s10-4"></span>
+    <h2 class="section-title" id="s10-4"><span class="snum">10.4</span> Complete Example</h2>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">timer_os.br</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span></div>
+        <div class="ln-code"><span class="tk-k">root</span> <span class="tk-i">BASE</span>       = <span class="tk-v">0x80000000</span>;
+<span class="tk-k">root</span> <span class="tk-i">TIMER_ADDR</span> = <span class="tk-v">0xBF000100</span>;  <span class="tk-c">// hardware timer register</span>
+
+<span class="tk-c">// Global tick counter in data segment</span>
+<span class="tk-k">let</span> <span class="tk-i">tick_count</span> = <span class="tk-n">0</span>;
+
+<span class="tk-c">// ISR: runs on every timer interrupt</span>
+<span class="tk-k">int</span> <span class="tk-i">on_tick</span> {
+    <span class="tk-i">tick_count</span> = <span class="tk-i">tick_count</span> + <span class="tk-n">1</span>;
+    <span class="tk-hw">poke</span>(<span class="tk-i">TIMER_ADDR</span>, <span class="tk-n">0</span>);   <span class="tk-c">// clear timer flag</span>
+}
+
+<span class="tk-c">// Main setup</span>
+<span class="tk-k">int_enable</span>(<span class="tk-n">7</span>, <span class="tk-i">on_tick</span>);
+
+<span class="tk-cf">loop</span> {
+    <span class="tk-c">// Main loop: ISR runs asynchronously</span>
+    <span class="tk-k">let</span> <span class="tk-i">t</span> = <span class="tk-i">tick_count</span>;
+    <span class="tk-hw">poke</span>(<span class="tk-v">0xBF000900</span>, <span class="tk-i">t</span>);
+}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s10-5"></span>
+    <h2 class="section-title" id="s10-5"><span class="snum">10.5</span> IR Lowering</h2>
+    <p>The three interrupt keywords lower to the following IR operations:</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock Statement</th><th>IR Op</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>int name { ... }</code></td><td><code>Mk "name"</code> + body + <code>Ret</code></td><td>Handler body emitted as a labeled block</td></tr>
+          <tr><td><code>int_enable(vec, handler)</code></td><td><code>Int vec, handler</code></td><td>The MIPS backend writes handler address to vector table</td></tr>
+          <tr><td><code>int_disable</code></td><td><code>IntDisable</code></td><td>Backend emits <code>mtc0</code> to clear IE bit in Status</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <span class="callout-ico">✦</span>
+      <div><strong>Optimizer awareness:</strong> The <code>Pruner</code>, <code>Transformer</code>, and <code>Quantum</code> optimizer passes all handle <code>IntHandler</code> and <code>IntEnable</code> nodes correctly: the body is traversed for live symbol analysis, constant folding, and instruction scheduling, just like a regular function body.</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('structs',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§9 Structs</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('optimizer',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§11 Optimizer</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §11 OPTIMIZER
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-optimizer">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§11 Optimizer</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 11</div>
+    <h1 class="page-title">Optimizer</h1>
+    <p class="page-desc">BedRock includes a three-pass optimizer pipeline activated via the <code>--optimize</code> flag. Each pass operates on the AST before IR lowering. Three levels are available, each stacking additional passes.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s11-1"></span>
+    <h2 class="section-title" id="s11-1"><span class="snum">11.1</span> Optimizer Levels</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Flag</th><th>Passes Applied</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>--optimize 1</code></td><td>Pruner</td><td>Constant folding + dead code elimination</td></tr>
+          <tr><td><code>--optimize 2</code></td><td>Pruner → Transformer</td><td>+ Loop-invariant code motion + strength reduction</td></tr>
+          <tr><td><code>--optimize 3</code></td><td>Pruner → Transformer → Quantum</td><td>+ Register allocation + pipeline scheduling</td></tr>
+          <tr><td>(none)</td><td>N/A</td><td>No optimization; raw AST passed to IR builder</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrock os.br --optimize 3 --target mips</span><button onclick="navigator.clipboard.writeText('bedrock os.br --optimize 3 --target mips')">Copy</button></div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s11-2"></span>
+    <h2 class="section-title" id="s11-2"><span class="snum">11.2</span> Pass 1: Pruner (Constant Folding & DCE)</h2>
+    <p>The <strong>Pruner</strong> performs two transformations in sequence:</p>
+    <ul class="doc-list">
+      <li><strong>Constant Folding:</strong> If both operands of a binary expression are compile-time constants, the compiler evaluates the expression at compile time and replaces it with a literal. All operators are supported: arithmetic, bitwise, shifts, and comparisons.</li>
+      <li><strong>Dead Code Elimination (DCE):</strong> Variables and arrays that are declared but never read (no use in any expression) are removed from the output. Function names and assignments to live variables are always preserved.</li>
+    </ul>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">before → after folding</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-c">// Before</span>
+<span class="tk-k">let</span> <span class="tk-i">base</span> = <span class="tk-n">4</span> * <span class="tk-n">1024</span>;      <span class="tk-c">// → let base = 4096</span>
+<span class="tk-k">let</span> <span class="tk-i">mask</span> = <span class="tk-v">0xFF</span> & <span class="tk-v">0x3F</span>;   <span class="tk-c">// → let mask = 63</span>
+<span class="tk-k">let</span> <span class="tk-i">unused</span> = <span class="tk-n">42</span>;           <span class="tk-c">// ← eliminated (never used)</span></div>
+    </div>
+    <div class="callout tip">
+      <span class="callout-ico">✦</span>
+      <div><strong>Conditional pruning:</strong> If an <code>if</code> condition folds to a constant, the dead branch is replaced with a no-op (<code>Return(None)</code>). A <code>while(0)</code> loop is similarly removed. This is safe to do at compile time.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s11-3"></span>
+    <h2 class="section-title" id="s11-3"><span class="snum">11.3</span> Pass 2: Transformer (LICM & Strength Reduction)</h2>
+    <p>The <strong>Transformer</strong> applies two analyses to every function and loop body:</p>
+    <ul class="doc-list">
+      <li><strong>Loop-Invariant Code Motion (LICM):</strong> Statements whose right-hand-side operands are never modified inside a loop body are hoisted out to before the loop. This eliminates redundant recomputation on every iteration.</li>
+      <li><strong>Strength Reduction:</strong> Multiplications and divisions by powers of two are replaced with shift instructions (<code>*2ⁿ</code> → <code>&lt;&lt; n</code>, <code>/2ⁿ</code> → <code>&gt;&gt; n</code>, <code>%2ⁿ</code> → <code>&amp; (2ⁿ-1)</code>), which are faster and smaller on MIPS.</li>
+    </ul>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">strength reduction examples</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">a</span> = <span class="tk-i">x</span> * <span class="tk-n">8</span>;    <span class="tk-c">// → x &lt;&lt; 3</span>
+<span class="tk-k">let</span> <span class="tk-i">b</span> = <span class="tk-i">x</span> / <span class="tk-n">4</span>;    <span class="tk-c">// → x &gt;&gt; 2</span>
+<span class="tk-k">let</span> <span class="tk-i">c</span> = <span class="tk-i">x</span> % <span class="tk-n">16</span>;   <span class="tk-c">// → x &amp; 15</span>
+<span class="tk-k">let</span> <span class="tk-i">d</span> = <span class="tk-i">x</span> + <span class="tk-n">0</span>;    <span class="tk-c">// → x  (identity elimination)</span></div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s11-4"></span>
+    <h2 class="section-title" id="s11-4"><span class="snum">11.4</span> Pass 3: Quantum (Register Allocation & Scheduling)</h2>
+    <p>The <strong>Quantum</strong> pass implements a linear-scan register allocator and an instruction scheduler. It models <code>18</code> available machine registers.</p>
+    <ul class="doc-list">
+      <li><strong>Live interval computation:</strong> Scans the entire program to determine the first-definition (<em>start</em>) and last-use (<em>end</em>) of every variable.</li>
+      <li><strong>Linear-scan allocation:</strong> Assigns physical registers to variables in order of their start time. When all 18 registers are busy, the variable with the longest remaining live range is spilled.</li>
+      <li><strong>Pipeline scheduling:</strong> Reorders statements within a block, placing independent operations (non-spilled variables) before spill-dependent ones to hide memory latency.</li>
+    </ul>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">interference graph metric</span><span class="cb-lang">BedRock</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-c">// The Quantum pass can report the chromatic bound:</span>
+<span class="tk-c">// chromatic_bound() returns the min registers needed</span>
+<span class="tk-c">// to color the interference graph: spills occur if</span>
+<span class="tk-c">// this exceeds 18 (MIPS_REGISTERS constant).</span></div>
+    </div>
+    <div class="callout info">
+      <span class="callout-ico">ℹ</span>
+      <div><strong>Spill behavior:</strong> Spilled variables are demoted to memory. The scheduler then places spill-dependent statements after independent ones, so the CPU can hide the load latency. This is especially effective on MIPS-32 pipelines where <code>lw</code> has a 1-cycle delay slot.</div>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('interrupts',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§10 Interrupt System</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('ir',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§12 IR Pipeline</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §12 IR PIPELINE
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-ir">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§12 IR Pipeline</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 12</div>
+    <h1 class="page-title">IR Pipeline</h1>
+    <p class="page-desc">BedRock now has a full intermediate representation (BedRock-IR) that decouples the frontend from the backend. The IR pipeline is the default compilation path since Rev 2.0 and enables multi-target output.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s12-1"></span>
+    <h2 class="section-title" id="s12-1"><span class="snum">12.1</span> Pipeline Overview</h2>
+    <div class="ascii-block">Source (.br)
+   |
+   v  Lexer -> Parser
+AST (Statement / Expression tree)
+   |
+   v  TypeInferencer -> Verifier
+Typed AST
+   |
+   v  Optimizer (--optimize N)
+Optimized AST
+   |
+   v  IrBuilder
+IrModule  (list of IrInstr)
+   |
+   |-- MipsBackend   -> output.bin
+   |-- RiscvBackend  -> output.bin  (RV32I + M, little-endian)
+   |-- ArmBackend    -> output.bin  (stub, coming soon)
+   `-- IrEmitBackend -> output.ir
+
+   Legacy path: --bridge flag bypasses IrBuilder
+   AST -> LegacyCodegen -> output.bin</div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s12-2"></span>
+    <h2 class="section-title" id="s12-2"><span class="snum">12.2</span> IR Opcodes</h2>
+    <p>The BedRock IR uses a simple three-address code format. Every instruction has an opcode and 0–3 operands.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Opcode</th><th>Operands</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>Mov</code></td><td>dst, src</td><td>Copy value or immediate to virtual register</td></tr>
+          <tr><td><code>Add/Sub/Mul/Div</code></td><td>dst, l, r</td><td>Arithmetic binary ops</td></tr>
+          <tr><td><code>And/Orr/Xor/Shl/Shr</code></td><td>dst, l, r</td><td>Bitwise and shift ops</td></tr>
+          <tr><td><code>Get</code></td><td>dst, addr</td><td>Load from memory address (→ <code>lw</code>)</td></tr>
+          <tr><td><code>Bri</code></td><td>val, addr</td><td>Store to memory address (→ <code>sw</code>)</td></tr>
+          <tr><td><code>Cal</code></td><td>label</td><td>Function call (→ <code>jal</code>)</td></tr>
+          <tr><td><code>Ret</code></td><td>[val]</td><td>Return from function</td></tr>
+          <tr><td><code>Psh / Pop</code></td><td>val / dst</td><td>Push/pop arguments for function calls</td></tr>
+          <tr><td><code>Mk</code></td><td>label</td><td>Emit a label (function entry or branch target)</td></tr>
+          <tr><td><code>Go</code></td><td>label</td><td>Unconditional jump (→ <code>j</code>)</td></tr>
+          <tr><td><code>Cf</code></td><td>l, r</td><td>Compare two operands (sets condition)</td></tr>
+          <tr><td><code>Jf</code></td><td>cond, label</td><td>Conditional jump if condition is false</td></tr>
+          <tr><td><code>Df</code></td><td>label, val</td><td>Data definition (emits word in DATA segment)</td></tr>
+          <tr><td><code>Inb / Outb</code></td><td>dst/val, port</td><td>Memory-mapped I/O read/write</td></tr>
+          <tr><td><code>Int</code></td><td>vector, handler</td><td>Register interrupt handler at vector</td></tr>
+          <tr><td><code>IntDisable</code></td><td>N/A</td><td>Disable all hardware interrupts</td></tr>
+          <tr><td><code>Asm</code></td><td>raw hex str</td><td>Emit raw 32-bit instruction word</td></tr>
+          <tr><td><code>Halt</code></td><td>N/A</td><td>Emit infinite jump-to-self (end of program)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s12-3"></span>
+    <h2 class="section-title" id="s12-3"><span class="snum">12.3</span> Targets & CLI Flags</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Flag</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><code>--target mips/-le</code></td><td>Default. IR → MIPS-32 big-endian or little-endian <code>.bin</code></td></tr>
+          <tr><td><code>--target riscv</code></td><td>IR → RISC-V (RV32I + M) little-endian <code>.bin</code>. Aliases: <code>risc-v</code>, <code>rv32</code>. See §13.</td></tr>
+          <tr><td><code>--target arm</code></td><td>IR → ARM backend (stub, exits with error)</td></tr>
+          <tr><td><code>--target ir</code></td><td>IR → text IR listing <code>.ir</code> file</td></tr>
+          <tr><td><code>--emit-ir</code></td><td>Print IR to stdout and exit (no binary written)</td></tr>
+          <tr><td><code>--bridge</code></td><td>Skip IR; use legacy AST → MIPS codegen path</td></tr>
+          <tr><td><code>--optimize N</code></td><td>Run N optimizer passes (1–3)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrock os.br --emit-ir</span><button onclick="navigator.clipboard.writeText('bedrock os.br --emit-ir')">Copy</button></div>
+    <div class="callout tip">
+      <span class="callout-ico">✦</span>
+      <div><strong>Inspect the IR:</strong> Use <code>--emit-ir</code> or <code>--target ir</code> to audit the IR that your source compiles to before committing to a binary. This is the recommended debugging workflow for complex programs.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s12-4"></span>
+    <h2 class="section-title" id="s12-4"><span class="snum">12.4</span> Source Map</h2>
+    <p>After compilation, the MIPS backend writes a <code>.map.json</code> file alongside the binary. Each entry records the BedRock source line, the output binary address, the raw 32-bit instruction word, and a human-readable description.</p>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">os.map.json (excerpt)</span><span class="cb-lang">JSON</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">[
+  { "line": 5,  "address": 2147483660, "instruction": 553648128, "source": "let counter = 0" },
+  { "line": 12, "address": 2147483664, "instruction": 553582592, "source": "poke(VGA, 0x0720)" }
+]</div>
+    </div>
+    <p>This source map is consumed by the VS Code debugger extension for live MIPS breakpoints correlated to BedRock source lines.</p>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('optimizer',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§11 Optimizer</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('riscv',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§13 RISC-V Backend</span></span></a>
+  </div>
+</div>
+</div>
+
+<!-- ██████████████████████████████████████
+     §13 RISC-V BACKEND
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-riscv">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§13 RISC-V Backend</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 13</div>
+    <h1 class="page-title">RISC-V Backend</h1>
+    <p class="page-desc">A second, independent IR-native backend targeting RV32I with the M (multiply/divide) extension. Selected with <code>--target riscv</code>. Every BedRock construct that lowers to MIPS also lowers to RISC-V. The mapping only differs at the instruction-encoding level.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-1"></span>
+    <h2 class="section-title" id="s13-1"><span class="snum">13.1</span> Overview &amp; Target Flag</h2>
+    <p>The RISC-V backend consumes the same <code>IrModule</code> as the MIPS IR-native backend. It sits at the same point in the pipeline, downstream of the optimizer and <code>IrBuilder</code>. No BedRock source changes are required to retarget a program; only the <code>--target</code> flag changes.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Flag</th><th>Aliases</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td><code>--target riscv</code></td><td><code>risc-v</code>, <code>rv32</code></td><td>RV32I + M, little-endian <code>.bin</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrock os.br --target riscv --optimize 3</span><button onclick="navigator.clipboard.writeText('bedrock os.br --target riscv --optimize 3')">Copy</button></div>
+    <div class="callout info">
+      <span class="callout-ico">ℹ</span>
+      <div><strong>ISA baseline:</strong> The backend emits RV32I base integer instructions plus the M extension for <code>MUL</code>/<code>DIV</code> (opcode <code>0x33</code>, <code>funct7 = 0000001</code>). It does not emit compressed (C), atomic (A), or floating-point (F/D) instructions. Output is always little-endian. There is no big-endian variant, unlike the MIPS backend.</div>
+    </div>
+    <h3 class="sub-title">Root Symbol Handling</h3>
+    <p>Address-space layout works the same way as §3. <code>root BASE</code>, <code>root DATA</code>, and <code>root STACK</code> configure the code start address, static data segment, and initial stack pointer. The default <code>BASE</code> is <code>0x80000000</code>, matching the generic RISC-V <code>virt</code>-machine convention used by QEMU and many bare-metal RV32 boards. It's the same numeric default as the MIPS backend, for a different reason.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-2"></span>
+    <h2 class="section-title" id="s13-2"><span class="snum">13.2</span> Register Mapping</h2>
+    <p>The backend defines a fixed set of role registers. Each one is chosen as a direct analogue of a MIPS role register from the MIPS backend, so the two backends stay easy to compare.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Role</th><th>RISC-V Register</th><th>Number</th><th>MIPS Analogue</th></tr></thead>
+        <tbody>
+          <tr><td>Zero</td><td>zero</td><td>x0</td><td>$zero (0)</td></tr>
+          <tr><td>Operand temp</td><td>t0</td><td>x5</td><td>$at (1)</td></tr>
+          <tr><td>Return value</td><td>a0</td><td>x10</td><td>$v0 (2)</td></tr>
+          <tr><td>Addressing temps</td><td>t1, t2</td><td>x6, x7</td><td>$t0, $t1 (8, 9)</td></tr>
+          <tr><td>Compare operands (CF)</td><td>t3, t4</td><td>x28, x29</td><td>$s6, $s7 (22, 23)</td></tr>
+          <tr><td>Call / interrupt scratch</td><td>t5, t6</td><td>x30, x31</td><td>$k0, $k1 (26, 27)</td></tr>
+          <tr><td>Stack pointer</td><td>sp</td><td>x2</td><td>$sp (29)</td></tr>
+          <tr><td>Return address</td><td>ra</td><td>x1</td><td>$ra (31)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="sub-title">Allocatable Pool (Virtual Register Allocation)</h3>
+    <p>19 physical registers are available to the linear allocator for user variables, one more than the 18 the MIPS IR-native backend uses. RISC-V's role registers leave a slightly larger free set: <code>s0, s1, a1–a7, s2–s11</code> (x8, x9, x11–x17, x18–x27). <code>tp</code> (x4) is reserved and never allocated. If the pool is exhausted, the variable is spilled to a stack slot at <code>sp + offset</code>, with the same spill semantics as §3.6. The immediate on <code>lw</code>/<code>sw</code> is a 12-bit signed value (±2048 bytes) rather than MIPS's 16-bit range, so a program with heavy spilling has a smaller spill window on RISC-V.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-3"></span>
+    <h2 class="section-title" id="s13-3"><span class="snum">13.3</span> Instruction Encoding</h2>
+    <p>RISC-V uses six base instruction formats. The backend implements each as a dedicated encoder function operating on raw field values.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Format</th><th>Bit Layout</th><th>Used For</th></tr></thead>
+        <tbody>
+          <tr><td>R-type</td><td><code>funct7[31:25] rs2[24:20] rs1[19:15] funct3[14:12] rd[11:7] opcode[6:0]</code></td><td>ADD, SUB, MUL, DIV, AND, OR, XOR, SLL, SRL</td></tr>
+          <tr><td>I-type</td><td><code>imm[31:20] rs1[19:15] funct3[14:12] rd[11:7] opcode[6:0]</code></td><td>ADDI, LW, JALR, ANDI, XORI, SLLI, SRLI, CSR ops</td></tr>
+          <tr><td>S-type</td><td><code>imm[11:5] rs2[24:20] rs1[19:15] funct3[14:12] imm[4:0] opcode[6:0]</code></td><td>SW (store)</td></tr>
+          <tr><td>B-type</td><td><code>imm[12|10:5] rs2 rs1 funct3 imm[4:1|11] opcode</code></td><td>BEQ, BNE, BLT, BGE (conditional branches)</td></tr>
+          <tr><td>U-type</td><td><code>imm[31:12] rd[11:7] opcode[6:0]</code></td><td>LUI (load upper immediate)</td></tr>
+          <tr><td>J-type</td><td><code>imm[20|10:1|11|19:12] rd[11:7] opcode[6:0]</code></td><td>JAL (unconditional jump / call)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Opcode</th><th>Hex</th><th>Opcode</th><th style="border-left:1px solid var(--g100)">Hex</th></tr></thead>
+        <tbody>
+          <tr><td>LOAD</td><td><code>0x03</code></td><td>BRANCH</td><td><code>0x63</code></td></tr>
+          <tr><td>OP-IMM</td><td><code>0x13</code></td><td>JALR</td><td><code>0x67</code></td></tr>
+          <tr><td>STORE</td><td><code>0x23</code></td><td>JAL</td><td><code>0x6F</code></td></tr>
+          <tr><td>OP (register-register)</td><td><code>0x33</code></td><td>SYSTEM (CSR)</td><td><code>0x73</code></td></tr>
+          <tr><td>LUI</td><td><code>0x37</code></td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Every instruction word this backend produces has been checked against a real disassembler (<code>objdump -m riscv:rv32</code>), so the mnemonics in this section reflect what actually gets emitted.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-4"></span>
+    <h2 class="section-title" id="s13-4"><span class="snum">13.4</span> Load Immediate</h2>
+    <p>RISC-V has no single instruction that loads an arbitrary 32-bit constant. The backend uses the standard <code>LUI</code> + <code>ADDI</code> pattern, with rounding to compensate for <code>ADDI</code>'s sign-extended 12-bit immediate.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">upper = (imm + 0x800) &gt;&gt; 12
+lower = imm − (upper &lt;&lt; 12)      // sign-extends correctly for ADDI
+
+If upper == 0:
+    addi $reg, $zero, lower       // Single instruction
+
+Else:
+    lui  $reg, upper              // Load upper 20 bits
+    addi $reg, $reg, lower        // Add signed lower 12 bits</div>
+    </div>
+    <div class="code-block">
+      <div class="cb-header"><span class="cb-fname">Examples</span><span class="cb-lang">RISC-V</span></div>
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-wrap">
+        <div class="ln-nums"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+        <div class="ln-code"><span class="tk-c">// Loading 100: fits in 12 bits, single instruction</span>
+addi t0, zero, 100
+
+<span class="tk-c">// Loading 0x80000000: upper rounds cleanly, no addi needed</span>
+lui  t0, 0x80000
+addi t0, t0, 0        <span class="tk-c">// still emitted for consistency, even when lower = 0</span></div>
+      </div>
+    </div>
+    <div class="callout warn">
+      <span class="callout-ico">⚠</span>
+      <div><strong>Rounding matters:</strong> Without the <code>+ 0x800</code> rounding term, values whose lower 12 bits have the sign bit set (bit 11) would load incorrectly. <code>ADDI</code>'s immediate is sign-extended by the CPU at execution time, so the encoder has to pre-compensate for that at compile time.</div>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-5"></span>
+    <h2 class="section-title" id="s13-5"><span class="snum">13.5</span> Arithmetic &amp; Logic Operations</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock</th><th>Mnemonic</th><th>funct7</th><th>funct3</th><th>opcode</th></tr></thead>
+        <tbody>
+          <tr><td>a + b</td><td>ADD</td><td>0000000</td><td>000</td><td>OP (0x33)</td></tr>
+          <tr><td>a - b</td><td>SUB</td><td>0100000</td><td>000</td><td>OP (0x33)</td></tr>
+          <tr><td>a * b</td><td>MUL</td><td>0000001</td><td>000</td><td>OP (0x33)</td></tr>
+          <tr><td>a / b</td><td>DIV</td><td>0000001</td><td>100</td><td>OP (0x33)</td></tr>
+          <tr><td>a &amp; b</td><td>AND</td><td>0000000</td><td>111</td><td>OP (0x33)</td></tr>
+          <tr><td>a | b</td><td>OR</td><td>0000000</td><td>110</td><td>OP (0x33)</td></tr>
+          <tr><td>a ^ b</td><td>XOR</td><td>0000000</td><td>100</td><td>OP (0x33)</td></tr>
+          <tr><td>a &lt;&lt; b</td><td>SLL / SLLI</td><td>0000000</td><td>001</td><td>OP / OP-IMM</td></tr>
+          <tr><td>a &gt;&gt; b</td><td>SRL / SRLI</td><td>0000000</td><td>101</td><td>OP / OP-IMM</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip">
+      <span class="callout-ico">✦</span>
+      <div><strong>MUL/DIV in one instruction:</strong> RISC-V's M extension puts the low 32 bits of a multiply, or the quotient of a divide, straight into the destination register. MIPS needs <code>mult</code>/<code>div</code> followed by a separate <code>mflo</code> to pull the result out of the LO register, so the RISC-V path is one instruction shorter for every <code>*</code> and <code>/</code> in a BedRock program.</div>
+    </div>
+    <h3 class="sub-title">Bitwise NOT</h3>
+    <p>RV32I has no dedicated NOR/NOT instruction. The backend synthesizes it as <code>XORI rd, rs, -1</code>. XOR-ing with an all-ones mask flips every bit, since the 12-bit immediate <code>-1</code> sign-extends to <code>0xFFFFFFFF</code> at execution time.</p>
+    <h3 class="sub-title">Shift Semantics</h3>
+    <p>Both the immediate (<code>SLLI</code>/<code>SRLI</code>) and register (<code>SLL</code>/<code>SRL</code>) shift forms are the logical variants. Shifting right always fills with zero, never the sign bit. This matches the MIPS backend's use of <code>srlv</code> (not <code>srav</code>) for <code>&gt;&gt;</code>, so shift behavior stays identical across both targets.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-6"></span>
+    <h2 class="section-title" id="s13-6"><span class="snum">13.6</span> Comparisons &amp; Branches</h2>
+    <p>MIPS has no direct "branch if less than" instruction, so it has to synthesize comparisons with <code>slt</code> before branching on the result. RISC-V's base ISA includes signed comparison branches natively, and the backend uses them directly, with no intermediate compare-then-branch step.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock (Cf/Jf)</th><th>RISC-V Branch</th><th>funct3</th></tr></thead>
+        <tbody>
+          <tr><td>l == r</td><td>BEQ l, r</td><td>000</td></tr>
+          <tr><td>l != r</td><td>BNE l, r</td><td>001</td></tr>
+          <tr><td>l &lt; r</td><td>BLT l, r</td><td>100</td></tr>
+          <tr><td>l &gt;= r</td><td>BGE l, r</td><td>101</td></tr>
+          <tr><td>l &gt; r</td><td>BLT r, l <em>(operands swapped)</em></td><td>100</td></tr>
+          <tr><td>l &lt;= r</td><td>BGE r, l <em>(operands swapped)</em></td><td>101</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Comparisons use the signed branch forms, <code>BLT</code>/<code>BGE</code>, not <code>BLTU</code>/<code>BGEU</code>. This matches the MIPS backend's use of signed <code>slt</code> for the same operators.</p>
+    <h3 class="sub-title">Unconditional Jump</h3>
+    <p><code>loop</code>/<code>Go</code> lowers to <code>JAL x0, label</code>, a jump that discards the link address by writing it to <code>x0</code> (hardwired to zero, so the write is dropped). This is the standard RISC-V idiom for an unconditional jump, equivalent to the pseudo-instruction <code>j label</code>.</p>
+    <h3 class="sub-title">Branch/Jump Target Resolution</h3>
+    <p>Forward references, a branch to a label not yet emitted, are resolved with a two-pass patch mechanism. A placeholder word is emitted at the branch site, and once every label's final address is known, the backend re-encodes that site with the correct signed byte offset using the same B-type/J-type encoders. RISC-V branch and jump offsets are PC-relative, so the numeric value of <code>root BASE</code> cancels out of every intra-program offset. Only absolute loads, like the stack pointer or a hardware address, are affected by <code>BASE</code>'s actual value.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-7"></span>
+    <h2 class="section-title" id="s13-7"><span class="snum">13.7</span> Function Calls &amp; Returns</h2>
+    <h3 class="sub-title">Call</h3>
+    <p>A named function call saves the caller's return address into a scratch register before the call and restores it right after, so the caller's own <code>ra</code> survives nested calls without a dedicated stack save.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">mv  t5, ra          <span class="tk-c">// save caller's return address</span>
+jal ra, &lt;label&gt;      <span class="tk-c">// call, sets ra to the instruction after this jal</span>
+mv  ra, t5           <span class="tk-c">// restore caller's return address</span></div>
+    </div>
+    <h3 class="sub-title">Return</h3>
+    <p>If the function returns a value, it's moved into <code>a0</code> (skipped if already there). The function then returns via <code>jalr x0, ra, 0</code>, the standard RISC-V <code>ret</code> pseudo-instruction.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">mv   a0, $result_reg   <span class="tk-c">// only if result isn't already in a0</span>
+jalr x0, ra, 0          <span class="tk-c">// ret</span></div>
+    </div>
+    <h3 class="sub-title">call(): Function Pointers</h3>
+    <p>The §4.7 <code>call(expr)</code> mechanism lowers the same way as a named call, except the target address is loaded from the evaluated expression into a register at runtime instead of being a compile-time label. The underlying jump still uses <code>jalr</code>, RISC-V's indirect-jump instruction. This is the direct structural equivalent of the MIPS <code>jalr $ra, $tX</code> form documented in §4.7.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-8"></span>
+    <h2 class="section-title" id="s13-8"><span class="snum">13.8</span> Memory Operations</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>BedRock</th><th>RISC-V</th><th>Format</th></tr></thead>
+        <tbody>
+          <tr><td>poke(addr, val)</td><td><code>sw val, 0(addr)</code></td><td>S-type</td></tr>
+          <tr><td>peek(addr)</td><td><code>lw dest, 0(addr)</code></td><td>I-type</td></tr>
+          <tr><td>outb(port, val)</td><td><code>sw val, 0(port)</code></td><td>S-type (identical to poke)</td></tr>
+          <tr><td>inb(port)</td><td><code>lw dest, 0(port)</code></td><td>I-type (identical to peek)</td></tr>
+          <tr><td>Stack spill store</td><td><code>sw reg, off(sp)</code></td><td>S-type, ±2048-byte offset range</td></tr>
+          <tr><td>Stack spill load</td><td><code>lw reg, off(sp)</code></td><td>I-type, ±2048-byte offset range</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>As with the MIPS backend, <code>outb</code>/<code>inb</code> are the same instructions as <code>poke</code>/<code>peek</code>. The distinction is only there to signal programmer intent about memory-mapped I/O versus general memory.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-9"></span>
+    <h2 class="section-title" id="s13-9"><span class="snum">13.9</span> Interrupts (CSR-Based)</h2>
+    <p>The RISC-V backend implements the §10 interrupt keywords using RISC-V's native control-and-status-register (CSR) mechanism, instead of the CP0-style register manipulation the MIPS backend uses.</p>
+    <h3 class="sub-title">int_enable: Handler Address Load</h3>
+    <p>Installing a handler loads its address into a scratch register using the same forward-patchable <code>LUI</code> + <code>ADDI</code> pair described in §13.4, resolved once the handler's label address is known.</p>
+    <h3 class="sub-title">int_disable: CSR Instruction</h3>
+    <p>The MIPS backend clears the IE bit via <code>mtc0</code> on the CP0 <code>Status</code> register. The RISC-V backend clears the MIE (Machine Interrupt Enable) bit directly with a CSR instruction.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code">csrrci x0, mstatus, 0x8   <span class="tk-c">// clear bit 3 (MIE) of mstatus, discard old value</span></div>
+    </div>
+    <p><code>CSRRCI</code> (funct3 = <code>111</code>, opcode = SYSTEM / <code>0x73</code>) clears the CSR bits specified by its 5-bit immediate and writes the CSR's prior value to the destination register. Here the destination is <code>x0</code>, so the old value is discarded and only the clear side-effect is kept.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s13-10"></span>
+    <h2 class="section-title" id="s13-10"><span class="snum">13.10</span> MIPS vs RISC-V: Quick Reference</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Aspect</th><th>MIPS Backend</th><th>RISC-V Backend</th></tr></thead>
+        <tbody>
+          <tr><td>Endianness</td><td>Big or little (selectable)</td><td>Little only</td></tr>
+          <tr><td>Multiply/Divide</td><td><code>mult</code>/<code>div</code> + <code>mflo</code> (2 instr.)</td><td><code>MUL</code>/<code>DIV</code> (1 instr.)</td></tr>
+          <tr><td>Less-than branch</td><td><code>slt</code> + <code>beq</code>/<code>bne</code> (2 instr.)</td><td><code>BLT</code>/<code>BGE</code> (1 instr.)</td></tr>
+          <tr><td>Allocatable registers</td><td>18</td><td>19</td></tr>
+          <tr><td>Spill offset range</td><td>16-bit (±32768 bytes)</td><td>12-bit (±2048 bytes)</td></tr>
+          <tr><td>Bitwise NOT</td><td><code>nor $d, $s, $zero</code></td><td><code>xori $d, $s, -1</code></td></tr>
+          <tr><td>Interrupt disable</td><td><code>mtc0</code> on CP0 Status</td><td><code>csrrci mstatus, 0x8</code></td></tr>
+          <tr><td>Delay slots</td><td>Yes, one instruction after every branch/jump</td><td>None</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Both backends consume the same <code>IrModule</code>, so any BedRock program that doesn't use raw <code>asm()</code> injection (§4.6/§6.6, since those hex words are architecture-specific by definition) compiles correctly to either target with just a change of the <code>--target</code> flag.</p>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('ir',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§12 IR Pipeline</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('x86',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§14 x86-64 Backend</span></span></a>
+  </div>
+</div>
+</div>
+
+
+<!-- ██████████████████████████████████████
+     §14 x86-64 BACKEND
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-x86">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§14 x86-64 Backend</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 14</div>
+    <h1 class="page-title">x86-64 Backend</h1>
+    <p class="page-desc">Hosted Linux x86-64 code generation. Emits a minimal ELF64 executable for desktop validation, tools, and syscall-based I/O — complementary to the bare-metal RISC-V path.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s14-1"></span>
+    <h2 class="section-title" id="s14-1"><span class="snum">14.1</span> Overview &amp; Target Flag</h2>
+    <p>The x86 backend consumes the same <code>IrModule</code> as MIPS and RISC-V. Select it with:</p>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrockco program.br --target x86 -o program.elf</span></div>
+    <p>The result is an <strong>ET_EXEC</strong> ELF64 for Linux. Mark it executable and run:</p>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">chmod +x program.elf &amp;&amp; ./program.elf ; echo $?</span></div>
+    <div class="callout info"><div class="callout-ico">ℹ</div><div>Prefer <code>--target riscv</code> for ESP32-C3 firmware. Prefer <code>--target x86</code> for hosted algorithms, file I/O experiments, and fast desktop iteration.</div></div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s14-2"></span>
+    <h2 class="section-title" id="s14-2"><span class="snum">14.2</span> ELF Layout</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Piece</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Text (PT_LOAD)</td><td>RX; typical VA <code>0x400000</code></td></tr>
+          <tr><td>Data (PT_LOAD)</td><td>RW; typical VA <code>0x420000</code> — string literals, buffers, <code>poke</code> targets</td></tr>
+          <tr><td>Entry</td><td><code>e_entry</code> at the start of generated text</td></tr>
+          <tr><td>ABI</td><td>Frame-based locals; parameters via stack; return value in <code>RAX</code></td></tr>
+          <tr><td>CRT</td><td>None — no glibc, no crt0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s14-3"></span>
+    <h2 class="section-title" id="s14-3"><span class="snum">14.3</span> Syscalls &amp; Hosted I/O</h2>
+    <p>Hosted programs use the language-level <code>syscall(...)</code> form. Arguments follow the Linux x86-64 System V convention: number in <code>RAX</code>, arguments in <code>RDI</code>, <code>RSI</code>, <code>RDX</code>, <code>R10</code>, <code>R8</code>, <code>R9</code>.</p>
+    <div class="code-block">
+      <button class="copy-btn" onclick="cpb(this)">Copy</button>
+      <div class="ln-code"><span class="tk-k">let</span> msg = <span class="tk-s">"Hello\n"</span>;
+
+<span class="tk-k">fn</span> <span class="tk-i">main</span>() {
+  <span class="tk-k">let</span> r = <span class="tk-hw">syscall</span>(<span class="tk-n">1</span>, <span class="tk-n">1</span>, &amp;msg, <span class="tk-n">6</span>);  <span class="tk-c">// write(stdout, ...)</span>
+  <span class="tk-cf">return</span> <span class="tk-n">0</span>;
+}</div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Nr</th><th>Name</th><th>Typical use</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>read</td><td>stdin / file</td></tr>
+          <tr><td>1</td><td>write</td><td>stdout / file</td></tr>
+          <tr><td>2</td><td>open</td><td>path → fd</td></tr>
+          <tr><td>3</td><td>close</td><td>fd</td></tr>
+          <tr><td>60</td><td>exit</td><td>process exit code</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s14-4"></span>
+    <h2 class="section-title" id="s14-4"><span class="snum">14.4</span> vs RISC-V</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Aspect</th><th>x86-64</th><th>RISC-V</th></tr></thead>
+        <tbody>
+          <tr><td>Primary use</td><td>Linux hosted tools / demos</td><td>Bare-metal MCU (ESP32-C3)</td></tr>
+          <tr><td>Artifact</td><td>ELF executable</td><td>Raw <code>.bin</code></td></tr>
+          <tr><td>I/O model</td><td>Linux syscalls</td><td>MMIO <code>peek</code> / <code>poke</code></td></tr>
+          <tr><td>Shared IR</td><td>Yes</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('riscv',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§13 RISC-V Backend</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('benchmarks',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§15 Benchmarks</span></span></a>
+  </div>
+</div>
+</div>
+
+
+<!-- ██████████████████████████████████████
+     §15 BENCHMARKS
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-benchmarks">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§15 Benchmarks</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 15</div>
+    <h1 class="page-title">Benchmarks</h1>
+    <p class="page-desc">BRC3 (BedRock compiler) versus GCC <code>-Os</code> on the same suite. Lower is better for compile time and binary size.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s15-1"></span>
+    <h2 class="section-title" id="s15-1"><span class="snum">15.1</span> Compilation Speed</h2>
+    <p><strong>Average time in ms — lower is better.</strong></p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Compiler</th><th>Avg time</th><th>Relative</th></tr></thead>
+        <tbody>
+          <tr><td>BRC3</td><td>22.73 ms</td><td>~5.2× faster</td></tr>
+          <tr><td>GCC (-Os)</td><td>120.39 ms</td><td>baseline</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s15-2"></span>
+    <h2 class="section-title" id="s15-2"><span class="snum">15.2</span> Binary Size Footprint</h2>
+    <p><strong>Average size in bytes — lower is better.</strong></p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead><tr><th>Compiler</th><th>Avg size</th><th>Relative</th></tr></thead>
+        <tbody>
+          <tr><td>BRC3</td><td>118 B</td><td>~133× smaller</td></tr>
+          <tr><td>GCC (-Os)</td><td>15,782 B</td><td>baseline</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip"><div class="callout-ico">✓</div><div>BRC3 generates zero-runtime, bare-metal machine code with no C-runtime (<code>crt0</code>) bloat or external dependency linking, resulting in fast compile passes and minimal footprints.</div></div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s15-3"></span>
+    <h2 class="section-title" id="s15-3"><span class="snum">15.3</span> Detailed Breakdown</h2>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead>
+          <tr><th>Benchmark</th><th>BRC3 Time</th><th>GCC (-Os)</th><th>BRC3 Size</th><th>GCC Size</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>arrays.br</td><td>99.20 ms</td><td>328.36 ms</td><td>80 B</td><td>15,776 B</td><td>PASS</td></tr>
+          <tr><td>bitwise.br</td><td>1.74 ms</td><td>65.52 ms</td><td>64 B</td><td>15,776 B</td><td>PASS</td></tr>
+          <tr><td>fibonacci.br</td><td>7.51 ms</td><td>73.31 ms</td><td>244 B</td><td>15,808 B</td><td>PASS</td></tr>
+          <tr><td>loops.br</td><td>3.48 ms</td><td>70.75 ms</td><td>116 B</td><td>15,776 B</td><td>PASS</td></tr>
+          <tr><td>math.br</td><td>1.74 ms</td><td>64.01 ms</td><td>88 B</td><td>15,776 B</td><td>PASS</td></tr>
+          <tr><td><strong>Average</strong></td><td><strong>22.73 ms</strong></td><td><strong>120.39 ms</strong></td><td><strong>118.4 B</strong></td><td><strong>15,782.4 B</strong></td><td><strong>100%</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn"><div class="callout-ico">⚠</div><div><strong>Fairness note.</strong> BRC3 targets bare-metal / minimal hosted ELF. GCC <code>-Os</code> is a full hosted toolchain with startup and link overhead. These numbers measure compile time and artifact size on this suite, not identical-ABI application runtime.</div></div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('x86',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§14 x86-64 Backend</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('deploy',null);return false;"><span class="nav-arr">→</span><span class="nav-info"><span class="nav-lbl">Next</span><span class="nav-ttl">§16 Hardware &amp; Simulation</span></span></a>
+  </div>
+</div>
+</div>
+
+
+<!-- ██████████████████████████████████████
+     §16 HARDWARE & SIMULATION
+█████████████████████████████████████████ -->
+<div class="doc-page" id="page-deploy">
+<div class="content-inner">
+  <div class="breadcrumb"><a href="#" onclick="nav('home',null);return false;">Docs</a><span class="sep">›</span><span class="cur">§16 Hardware &amp; Simulation</span></div>
+  <div class="page-header">
+    <div class="page-num">Section 16</div>
+    <h1 class="page-title">Hardware &amp; Simulation</h1>
+    <p class="page-desc">Deployment evidence for BedRock firmware on ESP32-C3 and the Wokwi simulator path used during heart-rate / UART development.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s16-1"></span>
+    <h2 class="section-title" id="s16-1"><span class="snum">16.1</span> ESP32-C3 Live Firmware</h2>
+    <p>Serial live plot from a physical ESP32-C3 running BedRock-generated firmware. The monitored channel holds a steady reading at <strong>72</strong>, validating the UART output path from the bare-metal payload.</p>
+    <div class="code-block" style="padding:0;overflow:hidden;background:var(--g50)">
+      <img src="assets/esp32c3_live.png" alt="Live reading from ESP32-C3 BedRock firmware" style="display:block;width:100%;height:auto"/>
+    </div>
+    <p style="margin-top:10px;font-size:12px;color:var(--g400)">Figure — Live reading from ESP32-C3 (BedRock firmware). Latest: 72.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s16-2"></span>
+    <h2 class="section-title" id="s16-2"><span class="snum">16.2</span> Wokwi Simulation</h2>
+    <p>Wokwi project used for heart-rate style prototyping before flashing hardware: MCU, sensor path, and 1602-class LCD labeled <em>Heart Rate Sim</em>.</p>
+    <div class="code-block" style="padding:0;overflow:hidden;background:var(--g50)">
+      <img src="assets/wokwi_sim.png" alt="Wokwi ESP32 Heart Rate Sim" style="display:block;width:100%;height:auto"/>
+    </div>
+    <p style="margin-top:10px;font-size:12px;color:var(--g400)">Figure — Wokwi simulation (ESP32 family) with Heart Rate Sim LCD and serial monitor.</p>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s16-3"></span>
+    <h2 class="section-title" id="s16-3"><span class="snum">16.3</span> Recommended Flow</h2>
+    <ol class="doc-list">
+      <li>Iterate pure logic with <code>--target x86</code> when no MMIO is required.</li>
+      <li>Compile the firmware payload with <code>--target riscv</code>.</li>
+      <li>Validate pin-level behavior in <strong>Wokwi</strong> when the diagram matches the board.</li>
+      <li>Flash the ESP32-C3; confirm UART / display with a live serial plot as in §16.1.</li>
+    </ol>
+    <div class="callout info"><div class="callout-ico">ℹ</div><div>ESP32 packaging (bootloader, partition table, combined image) is outside <code>bedrockco</code> itself. The compiler emits the bare RV32 payload; host tools wrap it for flash.</div></div>
+  </div>
+
+  <div class="page-nav">
+    <a href="#" onclick="nav('benchmarks',null);return false;"><span class="nav-arr">←</span><span class="nav-info"><span class="nav-lbl">Previous</span><span class="nav-ttl">§15 Benchmarks</span></span></a>
+    <a href="#" class="pn-right" onclick="nav('home',null);return false;"><span class="nav-arr">↑</span><span class="nav-info"><span class="nav-lbl">Back to</span><span class="nav-ttl">Overview</span></span></a>
+  </div>
+</div>
+</div>
+
+
+<!-- Mobile overlay -->
+<div class="mob-overlay" id="mob-overlay" onclick="toggleSidebar()"></div>
+
+
+<script>
+/* ══════════════════════════════════════════════════════
+   SIDEBAR FOLDER TOGGLE
+══════════════════════════════════════════════════════ */
+function tf(id) {
+  const ch = document.getElementById('ch-' + id);
+  const tg = document.getElementById('tg-' + id);
+  if (!ch || !tg) return;
+  const open = !ch.classList.contains('collapsed');
+  if (open) {
+    ch.classList.add('collapsed'); ch.style.maxHeight = '0';
+    tg.innerHTML = '<svg width="7" height="9" viewBox="0 0 7 9" fill="none"><path d="M1.5 1L5.5 4.5L1.5 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  } else {
+    ch.classList.remove('collapsed'); ch.style.maxHeight = '600px';
+    tg.innerHTML = '<svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 2.5L4.5 6.5L8 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE SIDEBAR TOGGLE
+══════════════════════════════════════════════════════ */
+function toggleSidebar() {
+  const aside = document.querySelector('aside');
+  const overlay = document.getElementById('mob-overlay');
+  const open = aside.classList.toggle('open');
+  overlay.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+function closeSidebarMobile() {
+  if (window.innerWidth <= 768) {
+    const aside = document.querySelector('aside');
+    const overlay = document.getElementById('mob-overlay');
+    aside.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   PAGE + ANCHOR NAVIGATION
+══════════════════════════════════════════════════════ */
+const PAGE_TO_SECTION = {
+  'home': null, 'philosophy': '1', 'lexical': '2',
+  'memory': '3', 'syntax': '4', 'codegen': '5',
+  'hardware': '6', 'practices': '7', 'edge': '8',
+  'structs': '9', 'interrupts': '10', 'optimizer': '11', 'ir': '12', 'riscv': '13',
+  'x86': '14', 'benchmarks': '15', 'deploy': '16'
+};
+
+function _activatePage(pid) {
+  document.querySelectorAll('.doc-page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('page-' + pid);
+  if (pg) pg.classList.add('active');
+
+  // Auto-expand the relevant section folder
+  const sec = PAGE_TO_SECTION[pid];
+  if (sec) {
+    const ch = document.getElementById('ch-' + sec);
+    const tg = document.getElementById('tg-' + sec);
+    if (ch && ch.classList.contains('collapsed')) {
+      ch.classList.remove('collapsed');
+      ch.style.maxHeight = '600px';
+      if (tg) tg.innerHTML = '<svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 2.5L4.5 6.5L8 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    }
+  }
+  document.title = pid === 'home'
+    ? 'BedRock Language: Documentation'
+    : 'BedRock Docs: §' + (sec || '') + ' ' + pid.charAt(0).toUpperCase() + pid.slice(1);
+}
+
+function _activateSidebarLink(el, pid, anchor) {
+  document.querySelectorAll('.tree-row').forEach(r => r.classList.remove('active'));
+  if (el) {
+    el.classList.add('active');
+  } else {
+    // match by page + anchor combo
+    const sel = anchor
+      ? `[data-page="${pid}"][data-anchor="${anchor}"]`
+      : `[data-page="${pid}"]`;
+    const lk = document.querySelector(sel);
+    if (lk) lk.classList.add('active');
+  }
+}
+
+// nav(): navigate to a page, scroll to top
+function nav(pid, el) {
+  _activatePage(pid);
+  _activateSidebarLink(el, pid, null);
+  window.scrollTo(0, 0);
+  closeSidebarMobile();
+}
+
+// navA(): navigate to a page AND scroll to a specific section anchor
+function navA(pid, anchor, el) {
+  const alreadyOnPage = document.getElementById('page-' + pid)?.classList.contains('active');
+
+  _activatePage(pid);
+  _activateSidebarLink(el, pid, anchor);
+  closeSidebarMobile();
+
+  // Scroll to anchor: use RAF to let the page render first if it was hidden
+  const doScroll = () => {
+    const target = document.getElementById(anchor);
+    if (!target) return;
+    const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 48;
+    const y = target.getBoundingClientRect().top + window.scrollY - headerH - 16;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    // Brief highlight animation
+    target.classList.remove('section-highlight');
+    void target.offsetWidth; // force reflow
+    target.classList.add('section-highlight');
+    setTimeout(() => target.classList.remove('section-highlight'), 1400);
+  };
+
+  if (alreadyOnPage) {
+    doScroll();
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(doScroll));
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   COPY CODE BLOCKS
+══════════════════════════════════════════════════════ */
+function cpb(btn) {
+  const block = btn.closest('.code-block').cloneNode(true);
+  block.querySelectorAll('.copy-btn, .cb-header, .ln-nums').forEach(e => e.remove());
+  const text = (block.innerText || block.textContent).replace(/\u200B/g, '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    btn.textContent = 'Error';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   SIDEBAR SEARCH FILTER
+══════════════════════════════════════════════════════ */
+function filterSidebar(query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('#sidebar-tree .tree-row[data-page]').forEach(row => {
+    const text = row.querySelector('.tree-label')?.textContent.toLowerCase() || '';
+    const li = row.closest('li');
+    if (li) li.style.display = (!q || text.includes(q)) ? '' : 'none';
+  });
+  if (q) {
+    ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16'].forEach(id => {
+      const ch = document.getElementById('ch-' + id);
+      const tg = document.getElementById('tg-' + id);
+      if (ch) { ch.classList.remove('collapsed'); ch.style.maxHeight = '600px'; }
+      if (tg) tg.innerHTML = '<svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 2.5L4.5 6.5L8 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    });
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   IN-PAGE SCROLL SPY (highlights sidebar on scroll)
+══════════════════════════════════════════════════════ */
+(function() {
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 48;
+      const activePage = document.querySelector('.doc-page.active');
+      if (!activePage) { ticking = false; return; }
+      const headings = activePage.querySelectorAll('h2.section-title[id]');
+      let current = null;
+      headings.forEach(h => {
+        if (h.getBoundingClientRect().top <= headerH + 40) current = h;
+      });
+      if (current) {
+        const aid = current.id;
+        const sideLink = document.querySelector(`[data-anchor="${aid}"]`);
+        if (sideLink && !sideLink.classList.contains('active')) {
+          document.querySelectorAll('.tree-row').forEach(r => r.classList.remove('active'));
+          sideLink.classList.add('active');
+        }
+      }
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+
+/* Prevent default on bare # links */
+document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+</script>
+
+
+</div></body></html>
