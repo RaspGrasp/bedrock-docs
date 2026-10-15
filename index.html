@@ -365,7 +365,7 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
       <span class="logo-text">BedRock<sup>docs</sup></span>
     </a>
     <div class="hd-sep"></div>
-    <span class="hd-version">Rev 3.1</span>
+    <span class="hd-version">Rev 3.2 · brc3 1.0.1-foundation</span>
   </div>
   <div class="hd-right">
     <nav class="hd-nav" style="display:flex;gap:2px">
@@ -654,7 +654,7 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
         <span class="tree-label">15. Benchmarks</span>
       </div>
       <ul class="tree-children collapsed" id="ch-15" style="max-height:0">
-        <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-1" onclick="navA('benchmarks','s15-1',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.1 Compilation Speed</span></a></li>
+        <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-1" onclick="navA('benchmarks','s15-1',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.1 Suite &amp; Method</span></a></li>
         <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-2" onclick="navA('benchmarks','s15-2',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.2 Binary Size</span></a></li>
         <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-3" onclick="navA('benchmarks','s15-3',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.3 Detailed Breakdown</span></a></li>
       </ul>
@@ -716,7 +716,7 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
     <a class="toc-card" href="#" onclick="nav('ir',null);return false;"><div class="tc-num">§ 12</div><div class="tc-title">IR Pipeline</div><div class="tc-desc">BedRock-IR, multi-target backends, source maps, CLI flags</div></a>
     <a class="toc-card" href="#" onclick="nav('riscv',null);return false;"><div class="tc-num">§ 13</div><div class="tc-title">RISC-V Backend</div><div class="tc-desc">RV32I/M encoding, register mapping, --target riscv</div></a>
     <a class="toc-card" href="#" onclick="nav('x86',null);return false;"><div class="tc-num">§ 14</div><div class="tc-title">x86-64 Backend</div><div class="tc-desc">Linux ELF, syscalls, hosted I/O, --target x86</div></a>
-    <a class="toc-card" href="#" onclick="nav('benchmarks',null);return false;"><div class="tc-num">§ 15</div><div class="tc-title">Benchmarks</div><div class="tc-desc">BRC3 vs GCC: compile time and binary size</div></a>
+    <a class="toc-card" href="#" onclick="nav('benchmarks',null);return false;"><div class="tc-num">§ 15</div><div class="tc-title">Benchmarks</div><div class="tc-desc">BRC3 vs freestanding GCC on RISC-V (size + suite)</div></a>
     <a class="toc-card" href="#" onclick="nav('deploy',null);return false;"><div class="tc-num">§ 16</div><div class="tc-title">Hardware &amp; Simulation</div><div class="tc-desc">ESP32-C3 live firmware, Wokwi, deployment flow</div></a>
   </div>
 
@@ -762,7 +762,7 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
   <div class="doc-section">
     <span class="section-anchor" id="s1-2"></span>
     <h2 class="section-title" id="s1-2"><span class="snum">1.2</span> "Byte-Level Validation"</h2>
-    <p>Numbers in BedRock are unsigned 64-bit integers at parse time, collapsed to 32-bit at code generation. All memory addresses are 32-bit values. There are no floating-point types, no signed arithmetic in the type system, and no implicit widening or truncation.</p>
+    <p>Numbers in BedRock are parsed as 64-bit values and lowered according to their declared type (<code>u8</code>–<code>u64</code>, <code>i8</code>–<code>i64</code>, <code>bool</code>). All memory addresses are 32-bit values. There are no floating-point types and no implicit widening or truncation — the type you write is the size that is stored and operated on.</p>
     <p>The compiler validates output at the byte level by:</p>
     <ul class="doc-list">
       <li>Encoding all instructions as big/le-endian 32-bit words via <code>to_be_bytes()</code></li>
@@ -774,16 +774,17 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
   <div class="doc-section">
     <span class="section-anchor" id="s1-3"></span>
     <h2 class="section-title" id="s1-3"><span class="snum">1.3</span> "Direct Hardware Control"</h2>
-    <p>BedRock provides five mechanisms for hardware access that map directly to bare-metal MIPS operations. There is no operating system abstraction layer.</p>
+    <p>BedRock provides a small set of primitives for hardware access that map directly to machine operations on the chosen target. There is no operating system abstraction layer on the bare-metal paths (MIPS / RISC-V).</p>
     <div class="tbl-wrap">
       <table class="doc-table">
-        <thead><tr><th>Construct</th><th>Hardware Operation</th><th>MIPS Instruction</th></tr></thead>
+        <thead><tr><th>Construct</th><th>Hardware Operation</th><th>Typical Encoding</th></tr></thead>
         <tbody>
-          <tr><td>poke(addr, val)</td><td>Write 32-bit word to physical address</td><td><code>sw $val, 0($addr)</code></td></tr>
-          <tr><td>peek(addr)</td><td>Read 32-bit word from physical address</td><td><code>lw $dest, 0($addr)</code></td></tr>
-          <tr><td>outb(port, val)</td><td>Memory-mapped I/O write</td><td><code>sw $val, 0($port)</code></td></tr>
-          <tr><td>inb(port)</td><td>Memory-mapped I/O read</td><td><code>lw $dest, 0($port)</code></td></tr>
-          <tr><td>asm("hex")</td><td>Emit raw machine instruction</td><td>Direct word emission</td></tr>
+          <tr><td>poke(addr, val)</td><td>Write 32-bit word to physical address</td><td>MIPS <code>sw</code> / RISC-V <code>sw</code> / x86 <code>mov</code></td></tr>
+          <tr><td>peek(addr)</td><td>Read 32-bit word from physical address</td><td>MIPS <code>lw</code> / RISC-V <code>lw</code> / x86 <code>mov</code></td></tr>
+          <tr><td>outb(port, val)</td><td>Memory-mapped I/O write</td><td>Same as poke (MMIO)</td></tr>
+          <tr><td>inb(port)</td><td>Memory-mapped I/O read</td><td>Same as peek (MMIO)</td></tr>
+          <tr><td>asm("hex")</td><td>Emit raw machine instruction word</td><td>Direct emission for the active target</td></tr>
+          <tr><td>syscall(...)</td><td>Hosted OS call (mainly x86-64)</td><td>x86 <code>syscall</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -822,6 +823,7 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
           <tr><td>fn</td><td>Declaration</td><td>Function definition</td></tr>
           <tr><td>let</td><td>Declaration</td><td>Local/static variable declaration</td></tr>
           <tr><td>root</td><td>Declaration</td><td>Hardware/environment constant declaration</td></tr>
+          <tr><td>struct</td><td>Declaration</td><td>Struct type definition</td></tr>
           <tr><td>return</td><td>Control Flow</td><td>Return from function</td></tr>
           <tr><td>if</td><td>Control Flow</td><td>Conditional branch</td></tr>
           <tr><td>else</td><td>Control Flow</td><td>Alternative branch</td></tr>
@@ -833,9 +835,18 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
           <tr><td>inb</td><td>Hardware</td><td>Memory-mapped I/O read</td></tr>
           <tr><td>poke</td><td>Hardware</td><td>Direct memory write</td></tr>
           <tr><td>peek</td><td>Hardware</td><td>Direct memory read</td></tr>
-          <tr><td>in</td><td>Hardware</td><td>Wait for keyboard input (alias for WaitKey)</td></tr>
-          <tr><td>include</td><td>Preprocessor</td><td>Include another source file (textual substitution)</td></tr>
-          <tr><td>call</td><td>Hardware / Pointer</td><td>Jump to a runtime address via <code>jalr</code>: function pointer call</td></tr>
+          <tr><td>syscall</td><td>Hardware</td><td>Hosted / OS syscall (x86-64 primarily)</td></tr>
+          <tr><td>call</td><td>Hardware / Pointer</td><td>Indirect call via function pointer</td></tr>
+          <tr><td>include</td><td>Preprocessor</td><td>Include another source file</td></tr>
+          <tr><td>int</td><td>Interrupts</td><td>Define interrupt handler</td></tr>
+          <tr><td>int_enable</td><td>Interrupts</td><td>Enable a vector + attach handler</td></tr>
+          <tr><td>int_disable</td><td>Interrupts</td><td>Globally disable interrupts</td></tr>
+          <tr><td>save_ctx</td><td>Interrupts</td><td>Save register context</td></tr>
+          <tr><td>restore_ctx</td><td>Interrupts</td><td>Restore register context</td></tr>
+          <tr><td>bnw</td><td>Special</td><td>Binary / name binding (internal)</td></tr>
+          <tr><td>u8 u16 u32 u64</td><td>Types</td><td>Unsigned integer types</td></tr>
+          <tr><td>i8 i16 i32 i64</td><td>Types</td><td>Signed integer types</td></tr>
+          <tr><td>bool</td><td>Types</td><td>Boolean type</td></tr>
         </tbody>
       </table>
     </div>
@@ -2331,7 +2342,7 @@ StructInstance("p", "Pixel")
         </tbody>
       </table>
     </div>
-    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrock os.br --optimize 3 --target mips</span><button onclick="navigator.clipboard.writeText('bedrock os.br --optimize 3 --target mips')">Copy</button></div>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">brc3 os.br --optimize 3 --target mips</span><button onclick="navigator.clipboard.writeText('brc3 os.br --optimize 3 --target mips')">Copy</button></div>
   </div>
 
   <div class="doc-section">
@@ -2490,7 +2501,7 @@ IrModule  (list of IrInstr)
         </tbody>
       </table>
     </div>
-    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrock os.br --emit-ir</span><button onclick="navigator.clipboard.writeText('bedrock os.br --emit-ir')">Copy</button></div>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">brc3 os.br --emit-ir</span><button onclick="navigator.clipboard.writeText('brc3 os.br --emit-ir')">Copy</button></div>
     <div class="callout tip">
       <span class="callout-ico">✦</span>
       <div><strong>Inspect the IR:</strong> Use <code>--emit-ir</code> or <code>--target ir</code> to audit the IR that your source compiles to before committing to a binary. This is the recommended debugging workflow for complex programs.</div>
@@ -2543,7 +2554,7 @@ IrModule  (list of IrInstr)
         </tbody>
       </table>
     </div>
-    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrock os.br --target riscv --optimize 3</span><button onclick="navigator.clipboard.writeText('bedrock os.br --target riscv --optimize 3')">Copy</button></div>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">brc3 os.br --target riscv --optimize 3</span><button onclick="navigator.clipboard.writeText('brc3 os.br --target riscv --optimize 3')">Copy</button></div>
     <div class="callout info">
       <span class="callout-ico">ℹ</span>
       <div><strong>ISA baseline:</strong> The backend emits RV32I base integer instructions plus the M extension for <code>MUL</code>/<code>DIV</code> (opcode <code>0x33</code>, <code>funct7 = 0000001</code>). It does not emit compressed (C), atomic (A), or floating-point (F/D) instructions. Output is always little-endian. There is no big-endian variant, unlike the MIPS backend.</div>
@@ -2796,7 +2807,7 @@ jalr x0, ra, 0          <span class="tk-c">// ret</span></div>
     <span class="section-anchor" id="s14-1"></span>
     <h2 class="section-title" id="s14-1"><span class="snum">14.1</span> Overview &amp; Target Flag</h2>
     <p>The x86 backend consumes the same <code>IrModule</code> as MIPS and RISC-V. Select it with:</p>
-    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">bedrockco program.br --target x86 -o program.elf</span></div>
+    <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">brc3 program.br --target x86 -o program.elf</span></div>
     <p>The result is an <strong>ET_EXEC</strong> ELF64 for Linux. Mark it executable and run:</p>
     <div class="cmd-strip"><span class="prompt">$</span><span class="cmd">chmod +x program.elf &amp;&amp; ./program.elf ; echo $?</span></div>
     <div class="callout info"><div class="callout-ico">ℹ</div><div>Prefer <code>--target riscv</code> for ESP32-C3 firmware. Prefer <code>--target x86</code> for hosted algorithms, file I/O experiments, and fast desktop iteration.</div></div>
@@ -2879,22 +2890,18 @@ jalr x0, ra, 0          <span class="tk-c">// ret</span></div>
   <div class="page-header">
     <div class="page-num">Section 15</div>
     <h1 class="page-title">Benchmarks</h1>
-    <p class="page-desc">BRC3 (BedRock compiler) versus GCC <code>-Os</code> on the same suite. Lower is better for compile time and binary size.</p>
+    <p class="page-desc">BRC3 versus freestanding GCC on the RISC-V (RV32I/M) suite. Same algorithms in <code>.br</code> and <code>.c</code>. Lower size is better. Suite: <code>bedrock_bench_riscv</code>.</p>
   </div>
 
   <div class="doc-section">
     <span class="section-anchor" id="s15-1"></span>
-    <h2 class="section-title" id="s15-1"><span class="snum">15.1</span> Compilation Speed</h2>
-    <p><strong>Average time in ms — lower is better.</strong></p>
-    <div class="tbl-wrap">
-      <table class="doc-table">
-        <thead><tr><th>Compiler</th><th>Avg time</th><th>Relative</th></tr></thead>
-        <tbody>
-          <tr><td>BRC3</td><td>22.73 ms</td><td>~5.2× faster</td></tr>
-          <tr><td>GCC (-Os)</td><td>120.39 ms</td><td>baseline</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <h2 class="section-title" id="s15-1"><span class="snum">15.1</span> Suite &amp; Method</h2>
+    <p>Five micro-benchmarks exercise arithmetic, nested loops, bitwise ops, iterative Fibonacci, and nested calls. Both sides target RISC-V:</p>
+    <ul class="doc-list">
+      <li><strong>BRC3:</strong> <code>brc3 &lt;file&gt;.br --target riscv</code> → raw little-endian RV32 <code>.bin</code> (no ELF wrapper).</li>
+      <li><strong>GCC:</strong> <code>riscv32-*-gcc -march=rv32imc -mabi=ilp32 -Os -ffreestanding -nostdlib -Wl,-e,_start</code> → freestanding ELF; size is the linked ELF (not a stripped <code>objcopy -O binary</code> dump).</li>
+    </ul>
+    <p>Expected mailbox results (written to <code>0x3FC8F000</code>): L1_math → 5005, L1_loops → 10000, L1_bitwise → 0xB0A5, L2_fib → 75025, L2_calls → 23.</p>
   </div>
 
   <div class="doc-section">
@@ -2905,12 +2912,12 @@ jalr x0, ra, 0          <span class="tk-c">// ret</span></div>
       <table class="doc-table">
         <thead><tr><th>Compiler</th><th>Avg size</th><th>Relative</th></tr></thead>
         <tbody>
-          <tr><td>BRC3</td><td>118 B</td><td>~133× smaller</td></tr>
-          <tr><td>GCC (-Os)</td><td>15,782 B</td><td>baseline</td></tr>
+          <tr><td>BRC3 (raw <code>.bin</code>)</td><td>244.8 B</td><td>~3.8× smaller</td></tr>
+          <tr><td>GCC (-Os, freestanding ELF)</td><td>918.4 B</td><td>baseline</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="callout tip"><div class="callout-ico">✓</div><div>BRC3 generates zero-runtime, bare-metal machine code with no C-runtime (<code>crt0</code>) bloat or external dependency linking, resulting in fast compile passes and minimal footprints.</div></div>
+    <div class="callout tip"><div class="callout-ico">✓</div><div>BRC3 emits pure machine code with no CRT, no ELF headers, and no external libraries. GCC freestanding still produces a full ELF container; a naive <code>objcopy -O binary</code> of that ELF under-reports size and must not be used for comparison.</div></div>
   </div>
 
   <div class="doc-section">
@@ -2919,19 +2926,20 @@ jalr x0, ra, 0          <span class="tk-c">// ret</span></div>
     <div class="tbl-wrap">
       <table class="doc-table">
         <thead>
-          <tr><th>Benchmark</th><th>BRC3 Time</th><th>GCC (-Os)</th><th>BRC3 Size</th><th>GCC Size</th><th>Status</th></tr>
+          <tr><th>Benchmark</th><th>BRC3 Size</th><th>GCC ELF Size</th><th>Expected Result</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr><td>arrays.br</td><td>99.20 ms</td><td>328.36 ms</td><td>80 B</td><td>15,776 B</td><td>PASS</td></tr>
-          <tr><td>bitwise.br</td><td>1.74 ms</td><td>65.52 ms</td><td>64 B</td><td>15,776 B</td><td>PASS</td></tr>
-          <tr><td>fibonacci.br</td><td>7.51 ms</td><td>73.31 ms</td><td>244 B</td><td>15,808 B</td><td>PASS</td></tr>
-          <tr><td>loops.br</td><td>3.48 ms</td><td>70.75 ms</td><td>116 B</td><td>15,776 B</td><td>PASS</td></tr>
-          <tr><td>math.br</td><td>1.74 ms</td><td>64.01 ms</td><td>88 B</td><td>15,776 B</td><td>PASS</td></tr>
-          <tr><td><strong>Average</strong></td><td><strong>22.73 ms</strong></td><td><strong>120.39 ms</strong></td><td><strong>118.4 B</strong></td><td><strong>15,782.4 B</strong></td><td><strong>100%</strong></td></tr>
+          <tr><td>L1_math.br</td><td>236 B</td><td>916 B</td><td>5005</td><td>PASS</td></tr>
+          <tr><td>L1_loops.br</td><td>240 B</td><td>916 B</td><td>10000</td><td>PASS</td></tr>
+          <tr><td>L1_bitwise.br</td><td>196 B</td><td>920 B</td><td>0xB0A5</td><td>PASS</td></tr>
+          <tr><td>L2_fib.br</td><td>224 B</td><td>928 B</td><td>75025</td><td>PASS</td></tr>
+          <tr><td>L2_calls.br</td><td>328 B</td><td>912 B</td><td>23</td><td>PASS</td></tr>
+          <tr><td><strong>Average</strong></td><td><strong>244.8 B</strong></td><td><strong>918.4 B</strong></td><td>—</td><td><strong>100%</strong></td></tr>
         </tbody>
       </table>
     </div>
-    <div class="callout warn"><div class="callout-ico">⚠</div><div><strong>Fairness note.</strong> BRC3 targets bare-metal / minimal hosted ELF. GCC <code>-Os</code> is a full hosted toolchain with startup and link overhead. These numbers measure compile time and artifact size on this suite, not identical-ABI application runtime.</div></div>
+    <div class="callout warn"><div class="callout-ico">⚠</div><div><strong>Fairness note.</strong> Both sides are freestanding / bare-metal oriented. BRC3 size is the raw instruction stream written by the RISC-V backend. GCC size is the linked ELF under <code>-Os -ffreestanding -nostdlib</code>. These figures measure artifact footprint on this suite, not wall-clock application runtime on silicon.</div></div>
+    <div class="callout info"><div class="callout-ico">ℹ</div><div>Reproduce with the <code>bedrock_bench_riscv</code> harness: <code>python3 scripts/run_bench.py</code>. Compile times are environment-dependent; re-run locally for timing numbers.</div></div>
   </div>
 
   <div class="page-nav">
@@ -2983,7 +2991,7 @@ jalr x0, ra, 0          <span class="tk-c">// ret</span></div>
       <li>Validate pin-level behavior in <strong>Wokwi</strong> when the diagram matches the board.</li>
       <li>Flash the ESP32-C3; confirm UART / display with a live serial plot as in §16.1.</li>
     </ol>
-    <div class="callout info"><div class="callout-ico">ℹ</div><div>ESP32 packaging (bootloader, partition table, combined image) is outside <code>bedrockco</code> itself. The compiler emits the bare RV32 payload; host tools wrap it for flash.</div></div>
+    <div class="callout info"><div class="callout-ico">ℹ</div><div>ESP32 packaging (bootloader, partition table, combined image) is outside <code>brc3</code> itself. The compiler emits the bare RV32 payload; host tools wrap it for flash.</div></div>
   </div>
 
   <div class="page-nav">
