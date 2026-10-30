@@ -657,6 +657,7 @@ code{font-family:var(--font-mono);font-size:11.5px;background:var(--g100);border
         <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-1" onclick="navA('benchmarks','s15-1',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.1 Suite &amp; Method</span></a></li>
         <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-2" onclick="navA('benchmarks','s15-2',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.2 Binary Size</span></a></li>
         <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-3" onclick="navA('benchmarks','s15-3',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.3 Detailed Breakdown</span></a></li>
+        <li><a class="tree-row" href="#" data-page="benchmarks" data-anchor="s15-4" onclick="navA('benchmarks','s15-4',this);return false;"><span class="indent" style="width:28px"></span><span class="toggle" style="width:18px"></span><span class="dot"></span><span class="tree-label">15.4 Compile Time</span></a></li>
       </ul>
     </li>
 
@@ -2058,7 +2059,8 @@ Bits [5:0]   = function code</div>
   <!-- §8.12 -->
   <div class="doc-section">
     <h2 class="section-title" id="s8-12"><span class="snum">8.12</span> Division by Zero Is Undefined</h2>
-    <p>BedRock emits a raw MIPS <code>div</code> instruction. On MIPS, division by zero produces an unpredictable value in LO and does not raise an exception unless the hardware is explicitly configured to do so. There is no compile-time or runtime guard.</p>
+    <p>BedRock emits a raw MIPS <code>div</code> instruction. On MIPS, division by zero produces an unpredictable value in LO and does not raise an exception unless the hardware is explicitly configured to do so. There is no runtime guard, and no compile-time guard for a variable divisor.</p>
+    <div class="callout info"><div class="callout-ico">ℹ</div><div>A <strong>literal</strong> zero divisor (<code>x / 0</code>) <em>is</em> caught at compile time by the verifier and rejected as an error. A divisor that is a variable whose value happens to be zero at runtime is <strong>not</strong> checked — the compiler only analyzes the source text, not runtime values.</div></div>
     <div class="code-block">
       <button class="copy-btn" onclick="cpb(this)">Copy</button>
       <div class="ln-code"><span class="tk-k">let</span> <span class="tk-i">result</span> <span class="tk-o">=</span> <span class="tk-i">x</span> <span class="tk-o">/</span> <span class="tk-n">0</span>;   <span class="tk-c"><span class="tk-err">// Compiles. Runtime behavior is undefined.</span></span></div>
@@ -2940,7 +2942,30 @@ jalr x0, ra, 0          <span class="tk-c">// ret</span></div>
       </table>
     </div>
     <div class="callout warn"><div class="callout-ico">⚠</div><div><strong>Fairness note.</strong> Both sides are freestanding / bare-metal oriented. BRC3 size is the raw instruction stream written by the RISC-V backend. GCC size is the linked ELF under <code>-Os -ffreestanding -nostdlib</code>. These figures measure artifact footprint on this suite, not wall-clock application runtime on silicon.</div></div>
-    <div class="callout info"><div class="callout-ico">ℹ</div><div>Reproduce with the <code>bedrock_bench_riscv</code> harness: <code>python3 scripts/run_bench.py</code>. Compile times are environment-dependent; re-run locally for timing numbers.</div></div>
+    <div class="callout info"><div class="callout-ico">ℹ</div><div>Reproduce with the <code>bedrock_bench_riscv</code> harness: <code>python3 scripts/run_bench.py</code>.</div></div>
+  </div>
+
+  <div class="doc-section">
+    <span class="section-anchor" id="s15-4"></span>
+    <h2 class="section-title" id="s15-4"><span class="snum">15.4</span> Compile Time</h2>
+    <p>Each target ran 5 untimed warm-up compiles before the timed runs, so cold-cache / first-run effects don't contaminate the statistics. Lower is better.</p>
+    <div class="tbl-wrap">
+      <table class="doc-table">
+        <thead>
+          <tr><th>Benchmark</th><th>BRC3 Mean (ms)</th><th>BRC3 Std</th><th>GCC Mean (ms)</th><th>GCC Std</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>L1_math.br</td><td>2.105</td><td>0.272</td><td>27.268</td><td>2.841</td></tr>
+          <tr><td>L1_loops.br</td><td>2.116</td><td>0.100</td><td>29.120</td><td>3.457</td></tr>
+          <tr><td>L1_bitwise.br</td><td>2.067</td><td>0.309</td><td>26.091</td><td>2.458</td></tr>
+          <tr><td>L2_fib.br</td><td>2.112</td><td>0.126</td><td>27.161</td><td>0.717</td></tr>
+          <tr><td>L2_calls.br</td><td>2.734</td><td>0.728</td><td>26.733</td><td>3.576</td></tr>
+          <tr><td><strong>Average</strong></td><td><strong>~2.1 ms</strong></td><td></td><td><strong>~27.3 ms</strong></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout tip"><div class="callout-ico">✓</div><div>BRC3 compiled roughly <strong>~12× faster</strong> than GCC on this suite (about 2 ms vs 26–29 ms per benchmark). Measured with 5 warm-up compiles per target before timing; std/mean below 50% on every row, so the mean is trustworthy (not noise-dominated) for all five benchmarks.</div></div>
+    <div class="callout info"><div class="callout-ico">ℹ</div><div>Reproduce locally: <code>python3 scripts/run_bench.py</code>. Absolute numbers are machine-dependent — re-run on your own hardware for your own figures; the relative gap (no CRT, no startup code, no linker step) is the stable result.</div></div>
   </div>
 
   <div class="page-nav">
